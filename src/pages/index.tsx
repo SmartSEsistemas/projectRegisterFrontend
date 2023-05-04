@@ -6,13 +6,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Form, { Field } from "@/components/Forms/Form";
 import { z } from 'zod';
-
+import { Teste } from "@/components/Sidebar/SiderBar";
+import Navbar from "@/components/Navbar/Navbar";
 export interface FieldArray extends Array<Field> {}
 
 
 const validationSchema = z.object({
   nome: z.string().min(1, 'Nome é obrigatório.'),
   email: z.string().email('Email inválido.'),
+  text: z.string().min(1, 'Texto é obrigatório.'),
 });
 
 
@@ -20,6 +22,13 @@ const ThemeToggleButton = () => {
   const { toggleTheme } = useContext(ThemeContext);
   const { showToast } = useToast();
   const [formValues, setFormValues] = useState({ nome: '', email: '' });
+
+
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
+  const handleMenuClick = () => {
+    setIsSidebarVisible(!isSidebarVisible);
+  };
 
 
   const fields:FieldArray = [
@@ -50,8 +59,15 @@ const ThemeToggleButton = () => {
     toggleTheme();
   };
 
+
   return (
     <>
+      <div>
+        <Navbar onMenuClick={handleMenuClick} isSidebarVisible={isSidebarVisible} />
+        {isSidebarVisible && <Teste />}
+
+      </div>
+
       <Button variant="primary" onClick={() => showToast("Alert Success", "success")}>
         Primary
       </Button>
@@ -82,7 +98,7 @@ const ThemeToggleButton = () => {
         validationSchema={validationSchema}
       />
 
-      <ToastContainer limit={5} toastStyle={{ backgroundColor: "transparent", boxShadow: "black 0px 2px 10px", fontWeight: "bold" }} />
+      <ToastContainer limit={5} toastStyle={{ backgroundColor: "transparent", background:"transparent", boxShadow: "black 0px 2px 10px", fontWeight: "bold" }} />
     </>
   );
 };
