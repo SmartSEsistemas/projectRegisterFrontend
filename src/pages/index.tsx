@@ -8,13 +8,20 @@ import Form, { Field } from "@/components/Forms/Form";
 import { z } from 'zod';
 import { Teste } from "@/components/Sidebar/SiderBar";
 import Navbar from "@/components/Navbar/Navbar";
-export interface FieldArray extends Array<Field> {}
+import { FormWithTabs, TabInfo } from "@/components/FormsWithTabs/FormsWithTabs";
+export interface FieldArray extends Array<Field> { }
 
 
 const validationSchema = z.object({
   nome: z.string().min(1, 'Nome é obrigatório.'),
-  email: z.string().email('Email inválido.'),
-  text: z.string().min(1, 'Texto é obrigatório.'),
+  email: z.string().email( 'Email inválido.'),
+});
+
+const validationoOutherSchema = z.object({
+  name: z.string().min(1, 'Nome é obrigatório.'),
+  sobrenome: z.string().min(1, 'Email inválido.'),
+  teste: z.string().min(1, 'Email inválido.'),
+  test1: z.string().min(1, 'Email inválido.'),
 });
 
 
@@ -31,10 +38,28 @@ const ThemeToggleButton = () => {
   };
 
 
-  const fields:FieldArray = [
-    { name: 'nome', label: 'Nome', type: 'text', placeholder: "Digite seu nome" , required: true },
-    { name: 'email', label: 'Email', type: 'email', placeholder: "Digite seu email" ,required: true },
-    { name: 'text', label: 'Insira seu texto', type: 'text', placeholder: "Digite alguma" ,required: true },
+  const fields: FieldArray = [
+    { name: 'nome', label: 'Nome', type: 'text', placeholder: "Digite seu nome", required: true },
+    { name: 'email', label: 'Email', type: 'email', placeholder: "Digite seu email", required: true },
+  ];
+
+
+  const tabs: TabInfo[] = [
+    {
+      label: "Dados Pessoais",
+      fields: [
+        { name: "name", label: "Current Password", type: "text", required: true },
+        { name: "sobrenome", label: "New Password", type: "text", required: true }   // ...
+      ],
+    },
+    {
+      label: "Dados Pessoais",
+      fields: [
+        { name: "teste", label: "Current Passwordadasdas", type: "text", required: true },
+        { name: "test1", label: "New Passwordasdasdasd", type: "text", required: true }   // ...
+      ],
+    },
+    // ...
   ];
 
 
@@ -98,7 +123,15 @@ const ThemeToggleButton = () => {
         validationSchema={validationSchema}
       />
 
-      <ToastContainer limit={5} toastStyle={{ backgroundColor: "transparent", background:"transparent", boxShadow: "black 0px 2px 10px", fontWeight: "bold" }} />
+
+      <FormWithTabs
+        tabs={tabs}
+        onSubmit={handleSubmit}
+        buttonVariant="primary"
+        validationSchema={validationoOutherSchema}
+      />
+
+      <ToastContainer limit={5} toastStyle={{ backgroundColor: "transparent", background: "transparent", boxShadow: "black 0px 2px 10px", fontWeight: "bold" }} />
     </>
   );
 };
