@@ -12,15 +12,16 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: ${({ theme }) => theme["background"]};
-    transition: background-color 0.2s ease-in-out;
-
   }
 
   body {
+    background-color: ${({ theme }) => theme["background"]};
+    transition: background-color 0.2s ease-in-out;
     font-family: 'Roboto', sans-serif;
   }
+
 `;
+
 
 export const STATUS_COLORS = {
   primary: "primary",
