@@ -7,7 +7,6 @@ import { AvatarFallback, AvatarImage, AvatarRoot, BottomButtonContainer, Checkbo
 import { ThemeContext } from '@/contexts/ThemeContext';
 import { StatusColor } from '@/styles/global';
 import { formatCPFOrCNPJ } from '@/utils/Formattes';
-import Link from 'next/link';
 
 export interface Field {
   name: string;
@@ -121,7 +120,7 @@ const FormularioLogin: React.FC<FormularioLoginProps> = ({
       </BottomButtonContainer>
 
       <div>
-        <CreateAccount href={"/login"}>Ainda não tem conta?</CreateAccount>
+        <CreateAccount href={"/cadastro"}>Ainda não tem conta?</CreateAccount>
       </div>
     </Form>
   );
