@@ -187,3 +187,8 @@ export const MensageStrength = styled.span`
   color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
   margin-bottom: 5px;
 `;
+
+export const Teste = styled.div`
+  margin-top: 10px;
+`
+

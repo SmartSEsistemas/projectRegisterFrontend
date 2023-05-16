@@ -3,7 +3,7 @@ import { FieldError, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button } from '@/components/Buttons/Button';
-import { AvatarFallback, AvatarImage, AvatarRoot, BottomButtonContainer, CheckboxContainer, CheckboxInput, CheckboxLabel, ContainerDiv, ContainerTitle, CreateAccount, ForgotPassword, Form, FormContainer, Input, Label, MensageStrength, SelectBox, Span, Title } from './style';
+import { AvatarFallback, AvatarImage, AvatarRoot, BottomButtonContainer, CheckboxContainer, CheckboxInput, CheckboxLabel, ContainerDiv, ContainerTitle, CreateAccount, ForgotPassword, Form, FormContainer, Input, Label, MensageStrength, SelectBox, Span, Teste, Title } from './style';
 import { ThemeContext } from '@/contexts/ThemeContext';
 import { StatusColor } from '@/styles/global';
 import { formatCPFOrCNPJ } from '@/utils/Formattes';
@@ -107,7 +107,7 @@ const FormularioCadastro: React.FC<FormularioLoginProps> = ({
               </SelectBox>
             ) : (
               <>
-                {field.name === 'passwordRegister' && passwordStrength?.strength === "Weak" && passwordRegister && (
+                {field.name === 'passwordRegister' && (
                   <MensageStrength>Para sua segurança, crie uma senha com no mínimo 6 caracteres. Lembre-se de combinar letras maiúsculas e minúsculas, e incluir também números. Faça a sua senha forte para proteger sua conta!</MensageStrength>
                 )}
                 <Input
@@ -127,7 +127,9 @@ const FormularioCadastro: React.FC<FormularioLoginProps> = ({
             }
             {
               field.name === 'passwordRegister' && passwordStrength && passwordRegister && passwordFocused && (
-                <PasswordStrengthBar strength={passwordStrength.strength} />
+                <Teste>
+                  <PasswordStrengthBar strength={passwordStrength.strength} />
+                </Teste>
               )
             }
           </ContainerDiv>
