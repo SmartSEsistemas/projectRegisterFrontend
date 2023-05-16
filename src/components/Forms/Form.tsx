@@ -4,9 +4,9 @@ import { FieldError, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod';
 import { Button } from '@/components/Buttons/Button';
-import { ContainerDiv, Form, Input, Label } from './style';
 import { ThemeContext } from '@/contexts/ThemeContext';
 import { StatusColor } from '@/styles/global';
+import { ContainerDiv, Form, Input, Label } from './style';
 
 export interface Field {
   name: string;
