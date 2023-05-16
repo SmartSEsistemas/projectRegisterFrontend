@@ -120,7 +120,7 @@ const FormularioLogin: React.FC<FormularioLoginProps> = ({
       </BottomButtonContainer>
 
       <div>
-        <CreateAccount href={"/cadastro"}>Ainda não tem conta?</CreateAccount>
+        <CreateAccount href={"/login"}>Ainda não tem conta?</CreateAccount>
       </div>
     </Form>
   );
