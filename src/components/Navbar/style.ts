@@ -151,6 +151,9 @@ export const DropdownContent = styled(Content)`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 8px 0;
   min-width: 180px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const DropdownItem = styled(Item)`
