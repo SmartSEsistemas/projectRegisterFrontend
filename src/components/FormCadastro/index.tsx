@@ -119,8 +119,8 @@ const FormularioCadastro: React.FC<FormularioLoginProps> = ({
                   placeholder={field.placeholder}
                   hasError={hasError}
                   onChange={handleInputChange}
-                  onFocus={() => setPasswordFocused(true)}
-                  onBlur={() => setPasswordFocused(false)}
+                  onFocus={field.name === 'passwordRegister' ? () => setPasswordFocused(true) : undefined}
+                  onBlur={field.name === 'passwordRegister' ? () => setPasswordFocused(false) : undefined}
                 />
               </>
             )
