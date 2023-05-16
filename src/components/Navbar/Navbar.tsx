@@ -1,8 +1,9 @@
 // components/Navbar.tsx
 import React, { useContext } from 'react';
-import { AvatarFallback, AvatarImage, AvatarRoot, DropdownContent, DropdownItem, FirstSide, Logo, MenuIcon, NavItems, NavbarContainer, NotificationCount, NotificationIcon, NotificationWrapper, SettingsIcon, SingOutIcon } from './style';
+import { AvatarFallback, AvatarImage, AvatarRoot, DropdownContent, DropdownItem, FirstSide, Logo, LogoutButton, MenuIcon, NavItems, NavbarContainer, NotificationCount, NotificationIcon, NotificationWrapper, SettingsIcon, SingOutIcon } from './style';
 import { ThemeContext } from '@/contexts/ThemeContext';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import Link from 'next/link';
 
 
 
@@ -45,7 +46,7 @@ const Navbar = ({ onMenuClick, isSidebarVisible }: { onMenuClick: () => void; is
                             <SettingsIcon size={20} /> Edit profile
                         </DropdownItem>
                         <DropdownItem onSelect={() => console.log('Logout')}>
-                            <SingOutIcon size={20} /> Logout
+                            <SingOutIcon size={20} /> <LogoutButton href={"/login"}>Logout</LogoutButton>
                         </DropdownItem>
                     </DropdownContent>
                 </DropdownMenu.Root>

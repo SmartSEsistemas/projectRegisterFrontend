@@ -28,6 +28,10 @@ export const Form = styled.form`
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
+
+    @media (max-width: 900px) {
+      gap: 5px;
+    }
 `
 
 export const ContainerDiv = styled.div<ContainerDivProps>`

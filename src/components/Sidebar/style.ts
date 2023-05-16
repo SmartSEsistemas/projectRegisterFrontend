@@ -5,7 +5,7 @@ export const SidebarContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 250px;
+  width: 200px;
   height: 100%;
   background-color: ${({ theme }) => (theme.theme === 'dark' ? theme.background : theme.background)};
   color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};

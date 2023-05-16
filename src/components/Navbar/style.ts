@@ -4,6 +4,7 @@ import * as Avatar from '@radix-ui/react-avatar';
 import styled from 'styled-components';
 import * as colors from '@radix-ui/colors';
 import { Content, Item } from '@radix-ui/react-dropdown-menu';
+import Link from 'next/link';
 
 
 
@@ -18,10 +19,10 @@ export const NavbarContainer = styled.div<{ isSidebarVisible: boolean }>`
   ${({ isSidebarVisible }) =>
     isSidebarVisible &&
     `
-    padding-left: 260px;
+    padding-left: 200px;
     transition: padding-left 0.2s ease;
   `}
-  ${({isSidebarVisible }) =>
+  ${({ isSidebarVisible }) =>
     !isSidebarVisible &&
     `
     transition: padding-left 0.2s ease;
@@ -160,3 +161,9 @@ export const DropdownItem = styled(Item)`
   cursor: pointer;
   gap: 5px;
 `;
+
+export const LogoutButton = styled(Link)`
+    // Estilos para o botão de logout
+  text-decoration: none;
+  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+`
