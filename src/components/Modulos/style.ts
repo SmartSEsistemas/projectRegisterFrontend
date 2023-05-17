@@ -21,7 +21,7 @@ export const ContainerModulos = styled.div<any>`
     margin: 10px;
     &:hover {
         background-color: ${({ theme }) => theme.borderColor};
-        color: ${({ theme }) => { return theme.theme === 'dark' ? "white" : theme.secondary}};
+        color: ${({ theme }) => theme.primary};
     }
     @media (max-width: 768px) { // For tablet view
         flex-basis: calc((100% - 100px) / 4);
@@ -135,19 +135,17 @@ export const ContainerModulosModal = styled.div`
     @media (max-width: 760px) {
         flex-basis: calc((100% - 100px) / 4);
         height: 500px !important; // Aumente este valor conforme necessário
-        width: 250px;
-        padding: 50px;
     }
 
     @media (max-width: 425px) {
         flex-basis: 100%;
         height: 60vh; // Ajuste este valor conforme necessário
-        width: 100%;
+        width: 90%;
     }
 
     &:hover {
         background-color: ${({ theme }) => theme.borderColor};
-        color: ${({ theme }) => { return theme.theme === 'dark' ? "white" : theme.secondary}};
+        color: ${({ theme }) => theme.primary};
     }   
 `;
 
