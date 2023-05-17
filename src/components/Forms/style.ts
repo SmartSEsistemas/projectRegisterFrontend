@@ -7,6 +7,7 @@ interface ContainerDivProps {
 
 interface InputProps {
   hasError?: boolean;
+  value?: string; // Defina o tipo do value como string
 }
 
 

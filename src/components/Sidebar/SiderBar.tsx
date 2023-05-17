@@ -5,7 +5,7 @@ import { SidebarContainer, SidebarHeader, SidebarContent, SidebarMenu, SidebarMe
 
 
 
-export const Teste = () => {
+export const SideBar = () => {
 
   const fields = [
     { name: 'nome', },
