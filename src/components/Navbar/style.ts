@@ -167,6 +167,8 @@ export const DropdownItem = styled(Item)`
 
 export const LogoutButton = styled(Link)`
     // Estilos para o botão de logout
+  display: flex;
+  gap: 5px;
   text-decoration: none;
   color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
 `

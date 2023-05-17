@@ -1,36 +1,64 @@
-import { useState, FC, ReactElement } from 'react';
-import { ContainerModulos, Title, SubmoduloContainer, Submodulo } from "./style"
+import { Dialog, DialogOverlay, DialogContent } from '@radix-ui/react-dialog';
+import { Portal } from '@radix-ui/react-portal';
+import { useState, useEffect, FC, ReactElement } from 'react';
+import { CloseIconWrapper, ContainerModulos, ContainerModulosModal, ContainerPortal, ContentWrapper, IconX, Title, TitleModal } from "./style"
 import Link from 'next/link';
+import { X } from '@phosphor-icons/react';
 
 interface ModulosProps {
     nomeModulo: string;
     submodulos: string[];
     Icone?: any
-    theme: any; // adicione o tema aqui
-
+    theme: any;
 }
 
 const Modulos: FC<ModulosProps> = ({ nomeModulo, submodulos, Icone = null, theme }) => {
-    const [showSubModulos, setShowSubModulos] = useState(false);
-    console.log(theme)
-    const handleClick = () => {
-        setShowSubModulos(!showSubModulos);
-    }
+    const [open, setOpen] = useState(false);
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     return (
-        <ContainerModulos onClick={handleClick}>
-            {Icone && <Icone size={40} weight="regular" color={theme.primary} />}
-            <Title>{nomeModulo}</Title>
-            {showSubModulos &&
-                <SubmoduloContainer>
-                    {submodulos.map((submodulo, index) => (
-                        <Submodulo key={index} href={'/home/'+submodulo}> {submodulo} </Submodulo>
-                    ))}
-                </SubmoduloContainer>
-            }
-        </ContainerModulos>
+        <>
+            {!open && (
+                <ContainerModulos onClick={handleOpen}>
+                    {Icone && <Icone size={40} weight="regular" color={theme.primary} />}
+                    <Title>{nomeModulo}</Title>
+                </ContainerModulos>
+            )}
+
+            {isClient && (
+                <Portal>
+                    <Dialog open={open} onOpenChange={handleClose}>
+                        <DialogOverlay style={{ position: 'fixed', backgroundColor: 'rgba(0, 0, 0, .5)', inset: 0 }}>
+                            <DialogContent style={{ height: '100vh', width: '100vw', display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+                                <ContainerPortal>
+                                    <CloseIconWrapper onClick={handleClose}>
+                                        <IconX size={32}/>
+                                    </CloseIconWrapper>
+                                    <ContentWrapper>
+                                        <TitleModal>{nomeModulo}</TitleModal>
+                                        {submodulos.map((submodulo, index) => (
+                                            <ContainerModulosModal key={index}>
+                                                <Title>{submodulo}</Title>
+                                            </ContainerModulosModal>
+                                        ))}
+                                    </ContentWrapper>
+                                </ContainerPortal>
+
+                            </DialogContent>
+                        </DialogOverlay>
+                    </Dialog>
+                </Portal>
+            )}
+        </>
     )
 }
 
 export default Modulos;
-

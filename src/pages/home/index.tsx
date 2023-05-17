@@ -4,14 +4,16 @@ import { Button } from "@/components/Buttons/Button";
 import { useToast } from "@/hooks/useToast";
 import "react-toastify/dist/ReactToastify.css";
 import { z } from 'zod';
-import { SideBar } from "@/components/Sidebar/SiderBar";
 import Navbar from "@/components/Navbar/Navbar";
 import { FormWithTabs, TabInfo } from "@/components/FormsWithTabs/FormsWithTabs";
 import { Alert, DivButtons, MainContent, ModulosContainer } from "./styles";
 import Form, { Field } from "@/components/Forms/Form";
 import Modulos from "@/components/Modulos";
 export interface FieldArray extends Array<Field> { }
+import { Sidebar } from "@/components/Sidebar/SiderBar";
+import { ICONS } from "@/utils/Icons";
 import * as Icon from "@phosphor-icons/react";
+
 
 
 const validationSchema = z.object({
@@ -63,20 +65,6 @@ const Home = () => {
     },
   ];
 
-
-  const ICONS = {
-    Strategy: Icon.Strategy,
-    CurrencyDollar: Icon.CurrencyDollar,
-    Pencil: Icon.Pencil,
-    People: Icon.Users,
-    FileText: Icon.FileText,
-    ShieldCheck: Icon.ShieldCheck,
-    Handshake: Icon.Handshake,
-    Clipboard: Icon.Clipboard,
-    UserCircle: Icon.UserCircle,
-    Heart: Icon.Heart,
-    // adicione outros ícones aqui conforme necessário
-  };
 
   const modulosData = [
     {
@@ -165,7 +153,7 @@ const Home = () => {
         <Navbar onMenuClick={handleMenuClick} isSidebarVisible={isSidebarVisible} />
         {isSidebarVisible && (
           <div ref={sidebarRef}>
-            <SideBar />
+            <Sidebar modulosData={modulosData} />
           </div>
         )}
       </div>

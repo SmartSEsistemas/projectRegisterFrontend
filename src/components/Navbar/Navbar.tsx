@@ -46,7 +46,7 @@ const Navbar = ({ onMenuClick, isSidebarVisible }: { onMenuClick: () => void; is
                             <SettingsIcon size={20} /> Edit profile
                         </DropdownItem>
                         <DropdownItem onSelect={() => console.log('Logout')}>
-                            <SingOutIcon size={20} /> <LogoutButton href={"/login"}>Logout</LogoutButton>
+                        <LogoutButton href={"/login"}> <SingOutIcon size={20} /> Logout</LogoutButton>  
                         </DropdownItem>
                     </DropdownContent>
                 </DropdownMenu.Root>

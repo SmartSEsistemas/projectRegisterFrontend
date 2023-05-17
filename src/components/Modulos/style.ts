@@ -1,3 +1,4 @@
+import { X } from "@phosphor-icons/react";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -68,3 +69,87 @@ export const Submodulo = styled(Link)`
         cursor: pointer;  // Cursor de ponteiro ao passar o mouse
     }
 `;
+
+export const ContainerPortal = styled.div`
+    position: relative;
+    padding: 50px;
+    background: ${({ theme }) => theme.background};
+    border-radius: 15px;
+`;
+
+export const ContentWrapper = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+`;
+
+export const CloseIconWrapper = styled.div`
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+`;
+
+export const TitleModal = styled.h2`
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: ${({ theme }) => theme.primary};
+`
+
+export const IconX = styled(X)`
+
+    color: ${({ theme }) => (theme.theme === 'dark' ? "#F6F6F6" : "#000000")};
+
+    &:hover{
+        color: red;
+    }
+
+`
+
+export const ContainerModulosModal = styled.div`
+    display: flex;
+    background-color: ${({ theme }) => theme.light};
+    height: 400px;
+    width: 400px;
+    border-radius: 15px;
+    margin: 10px;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    transition: all ease 0.3s;
+    flex-basis: calc((100% - 200px) / 5);
+    margin: 10px;
+    padding: 2.5rem;
+
+    @media (max-width: 760px) {
+        flex-basis: calc((100% - 100px) / 4);
+        height: 500px !important; // Aumente este valor conforme necessário
+        width: 250px;
+        padding: 50px;
+    }
+
+    @media (max-width: 425px) {
+        flex-basis: 100%;
+        height: 60vh; // Ajuste este valor conforme necessário
+        width: 100%;
+    }
+
+    &:hover {
+        background-color: ${({ theme }) => theme.borderColor};
+        color: ${({ theme }) => { return theme.theme === 'dark' ? "white" : theme.secondary}};
+    }   
+`;
+
+
+
