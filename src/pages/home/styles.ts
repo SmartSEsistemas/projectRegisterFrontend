@@ -12,8 +12,22 @@ export const Alert = styled(ToastContainer)`
   }`
 
 
-export const MainContent = styled.div<{isSidebarVisible: boolean }>`
+export const MainContent = styled.div<{ isSidebarVisible: boolean }>`
   transition: margin-left .5s;
-  margin-left: ${({ isSidebarVisible }) => (isSidebarVisible ? '250px' : '0')};
+  margin-left: ${({ isSidebarVisible }) => (isSidebarVisible ? '100px' : '0')};
   opacity: ${({ isSidebarVisible }) => (isSidebarVisible ? '0.3' : '1')};
 `;
+
+export const DivButtons = styled.div`
+  display: flex;
+  gap: 5px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+}  
+`
+
+export const ModulosContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+`

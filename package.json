@@ -15,6 +15,7 @@
     "@phosphor-icons/react": "^2.0.9",
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-avatar": "^1.0.2",
+    "@radix-ui/react-dialog": "^1.0.3",
     "@radix-ui/react-dropdown-menu": "^2.0.4",
     "@radix-ui/react-tabs": "^1.0.3",
     "@types/node": "18.16.3",

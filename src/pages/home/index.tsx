@@ -4,12 +4,16 @@ import { Button } from "@/components/Buttons/Button";
 import { useToast } from "@/hooks/useToast";
 import "react-toastify/dist/ReactToastify.css";
 import { z } from 'zod';
-import { SideBar } from "@/components/Sidebar/SiderBar";
 import Navbar from "@/components/Navbar/Navbar";
 import { FormWithTabs, TabInfo } from "@/components/FormsWithTabs/FormsWithTabs";
-import { Alert, MainContent } from "./styles";
+import { Alert, DivButtons, MainContent, ModulosContainer } from "./styles";
 import Form, { Field } from "@/components/Forms/Form";
+import Modulos from "@/components/Modulos";
 export interface FieldArray extends Array<Field> { }
+import { Sidebar } from "@/components/Sidebar/SiderBar";
+import { ICONS } from "@/utils/Icons";
+import * as Icon from "@phosphor-icons/react";
+
 
 
 const validationSchema = z.object({
@@ -26,7 +30,7 @@ const validationoOutherSchema = z.object({
 
 
 const Home = () => {
-  const { toggleTheme } = useContext(ThemeContext);
+  const { toggleTheme, theme } = useContext(ThemeContext);
   const { showToast } = useToast();
   const [formValues, setFormValues] = useState({ nome: '', email: '' });
 
@@ -62,6 +66,60 @@ const Home = () => {
   ];
 
 
+  const modulosData = [
+    {
+      nomeModulo: "Planejamento",
+      submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+      icone: "Strategy"
+    },
+    {
+      nomeModulo: "Gestão Orçamentária e Financeira",
+      submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+      icone: "CurrencyDollar"
+    },
+    {
+      nomeModulo: "Materiais",
+      submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+      icone: "Pencil"
+    },
+    {
+      nomeModulo: "Recursos Humanos",
+      submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+      icone: "People"
+    },
+    {
+      nomeModulo: "Gestão Tributária",
+      submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+      icone: "FileText"
+    },
+    {
+      nomeModulo: "Controle Interno",
+      submodulos: ['Submodulo 1', 'soskdaokd 2', 'Submodulo 3'],
+      icone: "ShieldCheck"
+    },
+    {
+      nomeModulo: "Consórcios",
+      submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+      icone: "Handshake"
+    },
+    {
+      nomeModulo: "Convênios",
+      submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+      icone: "Heart"
+    },
+    {
+      nomeModulo: "Protocolo",
+      submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+      icone: "Clipboard"
+    },
+    {
+      nomeModulo: "Cadastro",
+      submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+      icone: "UserCircle"
+    }
+  ]
+
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
@@ -95,14 +153,14 @@ const Home = () => {
         <Navbar onMenuClick={handleMenuClick} isSidebarVisible={isSidebarVisible} />
         {isSidebarVisible && (
           <div ref={sidebarRef}>
-            <SideBar />
-          </div>     
+            <Sidebar modulosData={modulosData} />
+          </div>
         )}
       </div>
 
 
       <MainContent isSidebarVisible={isSidebarVisible}>
-        <div style={{ gap: "10px", display: "flex" }}>
+        {/* <DivButtons >
           <Button variant="primary" onClick={() => showToast("Alert Success", "success")}>
             Primary
           </Button>
@@ -121,11 +179,8 @@ const Home = () => {
           <Button variant="danger" onClick={handleClick}>
             Danger
           </Button>
-          <Button variant="dark" onClick={handleClick}>
-            Dark
-          </Button>
-        </div>
 
+        </DivButtons>
 
         <Form
           fields={fields.map((field) => ({ ...field, onChange: handleChange }))}
@@ -134,13 +189,36 @@ const Home = () => {
           validationSchema={validationSchema}
         />
 
+     
+
 
         <FormWithTabs
           tabs={tabs}
           onSubmit={handleSubmit}
           buttonVariant="primary"
           validationSchema={validationoOutherSchema}
-        />
+        />  */}
+
+
+        <Button variant="primary" onClick={handleClick}>
+          Change theme
+        </Button>
+        <ModulosContainer>
+          {modulosData.map((modulo, index) => {
+            const IconeComponent = ICONS[modulo.icone as keyof typeof ICONS];
+            return (
+              <Modulos
+                key={index}
+                nomeModulo={modulo.nomeModulo}
+                submodulos={modulo.submodulos}
+                Icone={IconeComponent}
+                theme={theme}
+              />
+            );
+          })}
+        </ModulosContainer>
+
+
 
         <Alert limit={5} />
       </MainContent>

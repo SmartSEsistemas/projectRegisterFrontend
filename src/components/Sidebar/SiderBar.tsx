@@ -1,21 +1,17 @@
 // components/Sidebar.tsx
 import React from 'react';
 import { SidebarContainer, SidebarHeader, SidebarContent, SidebarMenu, SidebarMenuItem } from './style';
+import { ICONS } from '@/utils/Icons';
 
+interface SidebarProps {
+  modulosData: {
+    nomeModulo: string;
+    submodulos: string[];
+  }[];
+  Icone?  : any;
+}
 
-
-
-export const SideBar = () => {
-
-  const fields = [
-    { name: 'nome', },
-    { name: 'email'},
-    { name: 'text' },
-    { name: 'Te' },
-    { name: 'Ste' },
-    { name: 'RTE' },
-  ];
-
+export const Sidebar: React.FC<SidebarProps> = ({ modulosData, Icone}) => {
   return (
     <SidebarContainer>
       <SidebarHeader>
@@ -23,12 +19,16 @@ export const SideBar = () => {
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
-          {fields.map((field) => (
-            <SidebarMenuItem key={field.name}>{field.name}</SidebarMenuItem>
-          ))}
+          {modulosData.map((modulo, index) => {
+            return (
+              <SidebarMenuItem key={index}>
+                {Icone && <Icone size={16} weight="regular" color="red" />}
+                {modulo.nomeModulo}
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarContent>
     </SidebarContainer>
   );
 };
-
