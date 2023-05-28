@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { cpf as validateCPF, cnpj as validateCNPJ } from 'cpf-cnpj-validator';
-import { Container, FormContainer, FormContainerWidth, ImageContainer, ImageLogin, ImageWrapper, AvatarFallback, AvatarImage, AvatarRoot, BottomButtonContainer, CheckboxContainer, CheckboxInput, CheckboxLabel, ContainerDiv, ContainerTitle, CreateAccount, ForgotPassword, Form, FormContainerLogin, Input, Label, Span, Title, ErrorMessage } from "./styles";
+import { Container, FormContainer, FormContainerWidth, ImageContainer, ImageLogin, ImageWrapper, AvatarFallback, AvatarImage, AvatarRoot, BottomButtonContainer, CheckboxContainer, CheckboxInput, CheckboxLabel, ContainerDiv, ContainerTitle, CreateAccount, ForgotPassword, Form, FormContainerLogin, Input, Label, Span, Title, ErrorMessage } from "../../styles/login/styles";
 import { Button } from '@/components/Buttons/Button';
 import { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "@/contexts/ThemeContext";

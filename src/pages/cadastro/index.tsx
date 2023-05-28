@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { cpf as validateCPF, cnpj as validateCNPJ } from 'cpf-cnpj-validator';
-import { Container, FormContainer, FormContainerWidth, ImageContainer, ImageLogin, ImageWrapper, BottomButtonContainer, ContainerDiv, ContainerTitle, CreateAccount, Form, Input, Label, MensageStrength, ContainerForgotPassword, Title, ContainerInfoHelp } from "./styles";
+import { Container, FormContainer, FormContainerWidth, ImageContainer, ImageLogin, ImageWrapper, BottomButtonContainer, ContainerDiv, ContainerTitle, CreateAccount, Form, Input, Label, MensageStrength, ContainerForgotPassword, Title, ContainerInfoHelp } from "../../styles/cadastro/styles";
 import { differenceInYears } from 'date-fns'; // Adicione essa biblioteca para calcular a diferença em anos
 import { useContext, useState } from "react";
 import { ThemeContext } from "@/contexts/ThemeContext";

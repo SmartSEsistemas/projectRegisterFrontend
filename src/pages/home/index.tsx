@@ -1,19 +1,17 @@
 import { ChangeEvent, useContext, useRef, useState } from "react";
 import { ThemeContext } from "@/contexts/ThemeContext";
-import { Button } from "@/components/Buttons/Button";
 import { useToast } from "@/hooks/useToast";
 import "react-toastify/dist/ReactToastify.css";
 import { z } from 'zod';
 import Navbar from "@/components/Navbar/Navbar";
-import { FormWithTabs, TabInfo } from "@/components/FormsWithTabs/FormsWithTabs";
-import { Alert, Container, DivButtons, MainContent, ModulosContainer } from "./styles";
+import {  TabInfo } from "@/components/FormsWithTabs/FormsWithTabs";
+import { Alert, Container, MainContent, ModulosContainer } from "../../styles/home/styles";
 import Form, { Field } from "@/components/Forms/Form";
 import Modulos from "@/components/Modulos";
-export interface FieldArray extends Array<Field> { }
 import { Sidebar } from "@/components/Sidebar/SiderBar";
 import { ICONS } from "@/utils/Icons";
-import * as Icon from "@phosphor-icons/react";
 
+export interface FieldArray extends Array<Field> { }
 
 
 const validationSchema = z.object({

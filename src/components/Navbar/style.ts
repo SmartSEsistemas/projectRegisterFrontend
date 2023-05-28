@@ -19,7 +19,7 @@ export const NavbarContainer = styled.div<{ isSidebarVisible: boolean }>`
   ${({ isSidebarVisible }) =>
     isSidebarVisible &&
     `
-    padding-left: 200px;
+    padding-left: 208px;
     transition: padding-left 0.2s ease;
   `}
   ${({ isSidebarVisible }) =>
@@ -163,6 +163,11 @@ export const DropdownItem = styled(Item)`
   padding: 8px 16px;
   cursor: pointer;
   gap: 5px;
+  outline: none;
+  &:hover {
+    background-color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+  }
 `;
 
 export const LogoutButton = styled(Link)`
