@@ -40,12 +40,12 @@ const Modulos: FC<ModulosProps> = ({ nomeModulo, submodulos, Icone = null, theme
 
                                 <ContainerPortal>
                                     <CloseIconWrapper onClick={handleClose}>
-                                        <IconX size={32}/>
+                                        <IconX size={32} />
                                     </CloseIconWrapper>
                                     <ContentWrapper>
                                         <TitleModal>{nomeModulo}</TitleModal>
                                         {submodulos.map((submodulo, index) => (
-                                            <ContainerModulosModal key={index}>
+                                            <ContainerModulosModal key={index} count={submodulos.length}>
                                                 <Title>{submodulo}</Title>
                                             </ContainerModulosModal>
                                         ))}

@@ -29,5 +29,16 @@ export const DivButtons = styled.div`
 export const ModulosContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
+    gap: 32px; // Ajustado para 8px
     justify-content: center;
+    width: 100%;
+    padding: 3rem;
+`
+
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: auto;
 `

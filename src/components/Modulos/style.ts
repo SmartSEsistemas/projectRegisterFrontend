@@ -2,34 +2,36 @@ import { X } from "@phosphor-icons/react";
 import Link from "next/link";
 import styled from "styled-components";
 
-
 export const ContainerModulos = styled.div<any>`
-    position: relative; // Adicione isso
-    overflow: hidden; // Adicione isso
+    position: relative;
+    overflow: hidden;
     display: flex;
     background-color: ${({ theme }) => theme.light};
     height: ${({ isOpen }) => (isOpen ? "300px" : "250px")};
-    width: ${({ isOpen }) => (isOpen ? "300px" : "250px")};
+    flex-basis: calc(25% - 24px); // 4 colunas em um sistema de grid de 12 colunas, descontando o gap
     border-radius: 5px;
-    margin: 10px;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
     cursor: pointer;
     transition: all ease 0.3s;
-    flex-basis: calc((100% - 200px) / 5); // For 4 modules per row in desktop view
-    margin: 10px;
+    box-sizing: border-box;
+    gap: 8px;
+    @media (max-width: 992px) { // Para vistas de tablet
+        flex-basis: calc(50% - 0.5rem); // 6 colunas em um sistema de grid de 12 colunas, descontando o gap
+    }
+
+    @media (max-width: 768px) { // Para vistas mobile
+        flex-basis: calc(100% - 0.5rem); // 12 colunas em um sistema de grid de 12 colunas, descontando o gap
+    }
+
     &:hover {
         background-color: ${({ theme }) => theme.borderColor};
         color: ${({ theme }) => theme.primary};
     }
-    @media (max-width: 768px) { // For tablet view
-        flex-basis: calc((100% - 100px) / 4);
-    }
-    @media (max-width: 425px) { // For mobile view
-        flex-basis: 100%;
-    }
 `;
+
+
 
 
 export const Title = styled.h1`
@@ -116,7 +118,7 @@ export const IconX = styled(X)`
 
 `
 
-export const ContainerModulosModal = styled.div`
+export const ContainerModulosModal = styled.div<{ count: number }>`
     display: flex;
     background-color: ${({ theme }) => theme.light};
     height: 400px;
@@ -128,12 +130,12 @@ export const ContainerModulosModal = styled.div`
     flex-direction: column;
     cursor: pointer;
     transition: all ease 0.3s;
-    flex-basis: calc((100% - 200px) / 5);
+    flex-basis: ${({ count }) => `calc((100% - 200px) / ${count})`};
     margin: 10px;
     padding: 2.5rem;
 
     @media (max-width: 760px) {
-        flex-basis: calc((100% - 100px) / 4);
+        flex-basis: ${({ count }) => `calc((100% - 100px) / ${count})`};
         height: 500px !important; // Aumente este valor conforme necessário
     }
 

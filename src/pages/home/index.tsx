@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { z } from 'zod';
 import Navbar from "@/components/Navbar/Navbar";
 import { FormWithTabs, TabInfo } from "@/components/FormsWithTabs/FormsWithTabs";
-import { Alert, DivButtons, MainContent, ModulosContainer } from "./styles";
+import { Alert, Container, DivButtons, MainContent, ModulosContainer } from "./styles";
 import Form, { Field } from "@/components/Forms/Form";
 import Modulos from "@/components/Modulos";
 export interface FieldArray extends Array<Field> { }
@@ -200,23 +200,26 @@ const Home = () => {
         />  */}
 
 
-        <Button variant="primary" onClick={handleClick}>
+        {/* <Button variant="primary" onClick={handleClick}>
           Change theme
-        </Button>
-        <ModulosContainer>
-          {modulosData.map((modulo, index) => {
-            const IconeComponent = ICONS[modulo.icone as keyof typeof ICONS];
-            return (
-              <Modulos
-                key={index}
-                nomeModulo={modulo.nomeModulo}
-                submodulos={modulo.submodulos}
-                Icone={IconeComponent}
-                theme={theme}
-              />
-            );
-          })}
-        </ModulosContainer>
+        </Button> */}
+        <Container>
+          <ModulosContainer>
+            {modulosData.map((modulo, index) => {
+              const IconeComponent = ICONS[modulo.icone as keyof typeof ICONS];
+              return (
+                <Modulos
+                  key={index}
+                  nomeModulo={modulo.nomeModulo}
+                  submodulos={modulo.submodulos}
+                  Icone={IconeComponent}
+                  theme={theme}
+                />
+              );
+            })}
+          </ModulosContainer>
+        </Container>
+
 
 
 

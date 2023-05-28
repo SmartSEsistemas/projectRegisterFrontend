@@ -4,17 +4,24 @@ import { AvatarFallback, AvatarImage, AvatarRoot, DropdownContent, DropdownItem,
 import { ThemeContext } from '@/contexts/ThemeContext';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import Link from 'next/link';
+import { Moon, Sun } from '@phosphor-icons/react';
 
 
 
 const Navbar = ({ onMenuClick, isSidebarVisible }: { onMenuClick: () => void; isSidebarVisible: boolean }) => {
 
-    const { theme } = useContext(ThemeContext); // Acesse o tema atual
+    const { theme, toggleTheme } = useContext(ThemeContext); // Acesse o tema atual
 
     const handleClick = () => {
         console.log("click");
         onMenuClick();
-      };
+    };
+
+
+    const handleClickTheme = () => {
+        toggleTheme();
+    };
+    
 
     return (
         <NavbarContainer theme={theme} isSidebarVisible={isSidebarVisible} >
@@ -42,11 +49,14 @@ const Navbar = ({ onMenuClick, isSidebarVisible }: { onMenuClick: () => void; is
                         </AvatarRoot>
                     </DropdownMenu.Trigger>
                     <DropdownContent>
+                        <DropdownItem onClick={handleClickTheme}>
+                            {theme.theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />} <span>Change Theme</span>
+                        </DropdownItem>
                         <DropdownItem onSelect={() => console.log('Edit profile')}>
                             <SettingsIcon size={20} /> Edit profile
                         </DropdownItem>
                         <DropdownItem onSelect={() => console.log('Logout')}>
-                        <LogoutButton href={"/login"}> <SingOutIcon size={20} /> Logout</LogoutButton>  
+                            <LogoutButton href={"/login"}> <SingOutIcon size={20} /> Logout</LogoutButton>
                         </DropdownItem>
                     </DropdownContent>
                 </DropdownMenu.Root>
