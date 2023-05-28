@@ -124,6 +124,7 @@ export const CheckboxInput = styled.input``;
 
 export const CheckboxLabel = styled.span`
   font-size: 13px;
+  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
 `;
 
 export const ForgotPassword = styled(Link)`
