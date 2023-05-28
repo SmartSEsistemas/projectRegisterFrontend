@@ -18,11 +18,11 @@ export const ContainerModulos = styled.div<any>`
     box-sizing: border-box;
     gap: 8px;
     @media (max-width: 992px) { // Para vistas de tablet
-        flex-basis: calc(50% - 0.5rem); // 6 colunas em um sistema de grid de 12 colunas, descontando o gap
+        flex-basis: calc(50% - 16px); // 6 colunas em um sistema de grid de 12 colunas, descontando o gap
     }
 
     @media (max-width: 768px) { // Para vistas mobile
-        flex-basis: calc(100% - 0.5rem); // 12 colunas em um sistema de grid de 12 colunas, descontando o gap
+        flex-basis: calc(100% - 8px); // 12 colunas em um sistema de grid de 12 colunas, descontando o gap
     }
 
     &:hover {
