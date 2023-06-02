@@ -59,7 +59,6 @@ interface ListSelect {
   value: string;
 }
 
-
 const validationSchema = z.object({
   document: z.string().refine((value) => isCPForCNPJ(value), {
     message: 'CPF ou CNPJ inválido',
@@ -81,7 +80,6 @@ const Login = () => {
   const [entityNameList, setEntityNameList] = useState<ListSelect[]>([]);
   const router = useRouter();
 
-
   useMemo(async () => {
     try {
       const { options, url } = GET_ENTITY_NAMES('db1');
@@ -98,9 +96,6 @@ const Login = () => {
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-
-
 
   const {
     register,
@@ -127,7 +122,6 @@ const Login = () => {
       setValue(name, value, { shouldValidate: true, shouldDirty: true });
     }
   };
-
 
   const handleSubmitData = async (data: Record<string, unknown>) => {
     data.year = Number(data.year);
@@ -196,8 +190,6 @@ const Login = () => {
       options: [...entityNameList],
     },
   ];
-
-  
 
   return (
     <Container>
