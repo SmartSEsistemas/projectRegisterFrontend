@@ -17,12 +17,11 @@ export const Form = styled.form`
     align-items: center;
     justify-content: center;
     max-width: 900px;
-    max-height: 900px;
     background-color: ${({ theme }) => (theme.theme === 'dark' ? "#2A3042" : theme.light)};
     border-radius: 10px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 50px;
     padding: 20px;
     box-sizing: border-box;
 `
@@ -40,7 +39,7 @@ export const ContainerDiv = styled.div<ContainerDivProps>`
 
 export const Input = styled.input<InputProps>`
   width: 100%;
-  height: 40px;
+  height: 48px;
   border: 1px solid;
   border-radius: 5px;
   padding: 0 10px;
@@ -55,6 +54,12 @@ export const Input = styled.input<InputProps>`
 
   &::placeholder {
     color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+    opacity: 0.6;
+  }
+
+  &:focus {
+    border-color: ${({ hasError, theme }) => (hasError ? 'red' : theme.primary)};
+    box-shadow: 0 0 5px ${({ hasError, theme }) => (hasError ? 'red' : theme.primary)};
   }
 
 `
@@ -66,5 +71,10 @@ export const Label = styled.label`
   background-color: transparent;
   color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
   margin-bottom: 5px;
+`
+
+export const Optional = styled.span`
+  font-size: 10px;
+  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
 `
 

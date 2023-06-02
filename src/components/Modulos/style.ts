@@ -30,6 +30,35 @@ export const ContainerModulos = styled.div<any>`
         color: ${({ theme }) => theme.primary};
     }
 `;
+export const ContainerModulosLink = styled(Link)`
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    background-color: ${({ theme }) => theme.light};
+    flex-basis: calc(25% - 24px); // 4 colunas em um sistema de grid de 12 colunas, descontando o gap
+    border-radius: 5px;
+    justify-content: space-around;
+    color: ${({ theme }) => theme.dark};
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all ease 0.3s;
+    box-sizing: border-box;
+    gap: 8px;
+    @media (max-width: 992px) { // Para vistas de tablet
+        flex-basis: calc(50% - 16px); // 6 colunas em um sistema de grid de 12 colunas, descontando o gap
+    }
+
+    @media (max-width: 768px) { // Para vistas mobile
+        flex-basis: calc(100% - 8px); // 12 colunas em um sistema de grid de 12 colunas, descontando o gap
+    }
+
+    &:hover {
+        background-color: ${({ theme }) => theme.borderColor};
+        color: ${({ theme }) => theme.primary};
+    }
+`;
 
 
 

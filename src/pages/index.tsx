@@ -1,23 +1,84 @@
 // pages/index.tsx
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import HomeContainer from '@/Containers/HomeContainer';
+import Layout from '@/components/Layout';
 
-const IndexPage = () => {
-  const router = useRouter();
+// Conteúdo da sua antiga página home
 
-  useEffect(() => {
-    router.replace('/home');
-  }, []);
+const modulosData = [
+  {
+    nomeModulo: 'Planejamento',
+    submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+    icone: 'Strategy',
+  },
+  {
+    nomeModulo: 'Gestão Orçamentária e Financeira',
+    submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+    icone: 'CurrencyDollar',
+  },
+  {
+    nomeModulo: 'Materiais',
+    submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+    icone: 'Pencil',
+  },
+  {
+    nomeModulo: 'Recursos Humanos',
+    submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+    icone: 'People',
+  },
+  {
+    nomeModulo: 'Gestão Tributária',
+    submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+    icone: 'FileText',
+  },
+  {
+    nomeModulo: 'Controle Interno',
+    submodulos: ['Submodulo 1', 'soskdaokd 2', 'Submodulo 3'],
+    icone: 'ShieldCheck',
+  },
+  {
+    nomeModulo: 'Consórcios',
+    submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+    icone: 'Handshake',
+  },
+  {
+    nomeModulo: 'Convênios',
+    submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+    icone: 'Heart',
+  },
+  {
+    nomeModulo: 'Protocolo',
+    submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+    icone: 'Clipboard',
+  },
+  {
+    nomeModulo: 'Cadastro',
+    submodulos: ['Submodulo 1', 'Submodulo 2', 'Submodulo 3'],
+    icone: 'UserCircle',
+  },
+];
 
-  return null; // você pode retornar um elemento de carregamento aqui, se quiser
+const HomePage = () => {
+  return (
+    <>
+      <Layout modulosDataArray={modulosData}>
+        <HomeContainer />
+      </Layout>
+    </>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  context.res.writeHead(302, { Location: '/home' });
-  context.res.end();
+  const isAuthenticated = true;
+
+  // Você deve substituir esta função de acordo com a sua lógica de autenticação.
+
+  if (!isAuthenticated) {
+    context.res.writeHead(302, { Location: '/login' });
+    context.res.end();
+  }
 
   return { props: {} };
 };
 
-export default IndexPage;
+export default HomePage;

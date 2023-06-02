@@ -1,8 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import Link from 'next/link';
 import * as Avatar from '@radix-ui/react-avatar';
-import Select from 'react-select'
-
+import Select from 'react-select';
 
 interface ContainerDivProps {
   isLast: boolean;
@@ -21,7 +20,8 @@ export const Form = styled.form`
   gap: 8px;
   max-width: 900px;
   max-height: 900px;
-  background-color: ${({ theme }) => (theme.theme === 'dark' ? "#2A3042" : theme.light)};
+  background-color: ${({ theme }) =>
+    theme.theme === 'dark' ? '#2A3042' : theme.light};
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   margin: 0 auto;
@@ -45,23 +45,27 @@ export const Input = styled.input<InputProps>`
   border: 1px solid;
   border-radius: 5px;
   padding: 0 10px;
-  background-color: ${({ theme }) => (theme.theme === 'dark' ? "#2A3042" : theme.light)};
+  background-color: ${({ theme }) =>
+    theme.theme === 'dark' ? '#2A3042' : theme.light};
   margin-bottom: 8px;
   box-sizing: border-box;
   font-size: 16px;
   outline: none;
   transition: all ease 0.3s;
-  border-color: ${({ hasError, theme }) => (hasError ? 'red' : theme.borderColor)};
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#F6F6F6" : "#000000")};
+  border-color: ${({ hasError, theme }) =>
+    hasError ? 'red' : theme.borderColor};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#F6F6F6' : '#000000')};
 
   &::placeholder {
-    color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+    color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
     opacity: 0.6;
   }
 
   &:focus {
-    border-color: ${({ hasError, theme }) => (hasError ? 'red' : theme.primary)};
-    box-shadow: 0 0 5px ${({ hasError, theme }) => (hasError ? 'red' : theme.primary)};
+    border-color: ${({ hasError, theme }) =>
+      hasError ? 'red' : theme.primary};
+    box-shadow: 0 0 5px
+      ${({ hasError, theme }) => (hasError ? 'red' : theme.primary)};
   }
 `;
 
@@ -71,17 +75,18 @@ export const SelectBox = styled(Select)`
   border: 1px solid;
   border-radius: 5px;
   padding: 0 10px;
-  background-color: ${({ theme }) => (theme.theme === 'dark' ? "#2A3042" : theme.light)};
+  background-color: ${({ theme }) =>
+    theme.theme === 'dark' ? '#2A3042' : theme.light};
   margin-bottom: 10px;
   box-sizing: border-box;
   font-size: 16px;
   outline: none;
   transition: all ease 0.3s;
-  border-color: ${({ theme }) => (theme.borderColor)};
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#F6F6F6" : "#000000")};
+  border-color: ${({ theme }) => theme.borderColor};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#F6F6F6' : '#000000')};
 
   &::placeholder {
-    color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+    color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
     opacity: 0.6;
   }
 
@@ -124,14 +129,14 @@ export const CheckboxInput = styled.input``;
 
 export const CheckboxLabel = styled.span`
   font-size: 13px;
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
 `;
 
 export const ForgotPassword = styled(Link)`
   font-size: 13px;
   font-weight: bold;
   text-decoration: none;
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
 `;
 
 export const BottomButtonContainer = styled.div`
@@ -146,7 +151,7 @@ export const CreateAccount = styled(Link)`
   font-size: 13px;
   font-weight: bold;
   text-decoration: none;
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
 `;
 
 export const ContainerTitle = styled.div`
@@ -158,12 +163,12 @@ export const ContainerTitle = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: ${({ theme }) => (theme.primary)};
+  color: ${({ theme }) => theme.primary};
   font-size: 1.5rem;
 `;
 
 export const Span = styled.span`
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
   font-size: 1rem;
 `;
 
@@ -211,14 +216,14 @@ export const ImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #EFF3F7;
+  background-color: #eff3f7;
 
   @media (max-width: 900px) {
     display: none;
   }
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -263,11 +268,10 @@ export const FormContainerWidth = styled.div`
 `;
 
 export const ErrorMessage = styled.span`
-    color: red;
-    font-size: 12px;
-    padding-left: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 4px;
+  color: red;
+  font-size: 12px;
+  padding-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;
-
