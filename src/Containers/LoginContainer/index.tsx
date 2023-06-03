@@ -343,7 +343,7 @@ const Login = () => {
             </BottomButtonContainer>
 
             <div>
-              <CreateAccount href={'/cadastro'}>
+              <CreateAccount href={'/register'}>
                 Ainda não tem conta?
               </CreateAccount>
             </div>

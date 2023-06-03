@@ -1,13 +1,8 @@
-import Form, { Field } from '@/components/Forms/Form';
-import {
-  FormWithTabs,
-  TabInfo,
-} from '@/components/FormsWithTabs/FormsWithTabs';
+import Form, { Field, FieldCategory } from '@/components/Forms/Form';
 import {
   formatCEP,
   formatCNH,
   formatCPF,
-  formatCPFOrCNPJ,
   formatCellPhone,
   formatRG,
 } from '@/utils/Formattes';
@@ -16,15 +11,8 @@ import {
   isCPForCNPJ,
   isNotFutureDate,
 } from '@/utils/VerifyInputs';
-import { differenceInYears, min } from 'date-fns';
-import { ChangeEvent, useState } from 'react';
 import { z } from 'zod';
-
-// const isOlderThan18 = (value: string): boolean => {
-//   const birthdate = new Date(value);
-//   const age = differenceInYears(new Date(), birthdate);
-//   return age >= 18;
-// };
+import { Container, TitlePage } from './styles';
 
 export type FieldArray = Array<Field>;
 
@@ -32,6 +20,7 @@ const validationSchema = z.object({
   nome: z.string().min(3, 'Nome deve ter no mínimo 3 caracteres'),
   rg: z
     .string()
+    .min(9, 'RG deve ter no mínimo 9 caracteres')
     .refine((value) => value !== undefined && formatRG(value) === value, {
       message: 'RG inválido',
     }),
@@ -44,6 +33,7 @@ const validationSchema = z.object({
     }),
   cnh: z
     .string()
+    .min(11, 'CNH deve ter no mínimo 11 caracteres')
     .optional()
     .refine(
       (value) =>
@@ -59,6 +49,7 @@ const validationSchema = z.object({
   nacionalidade: z.string(),
   cep_endereco: z
     .string()
+    .min(8, 'CEP deve ter no mínimo 8 caracteres')
     .refine((value) => formatCEP(value) === value, { message: 'CEP inválido' }),
   rua: z.string(),
   numero: z.string(),
@@ -81,217 +72,232 @@ const CreatePessoaFisicaContainer = () => {
     console.log(data);
   };
 
-  const [formValues, setFormValues] = useState({
-    nome: '',
-    email: '',
-    telefone: '',
-    cpf: '',
-    rg: '',
-    cnh: '',
-    data_nascimento: '',
-    nacionalidade: '',
-    cep_endereco: '',
-    rua: '',
-    numero: '',
-    complemento: '',
-    bairro: '',
-    cidade: '',
-    estado: '',
-    data_cadastro: '',
-    orgao_emissor: '',
-    uf_rg: '',
-    data_emissao_rg: '',
-  });
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    console.log(event.target);
-    setFormValues((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const fields: FieldArray = [
+  const fieldsWithCartegory: FieldCategory[] = [
     {
-      name: 'nome',
-      label: 'Nome Completo',
-      type: 'text',
-      placeholder: 'Digite seu nome',
-      required: true,
-    },
-    {
-      name: 'rg',
-      label: 'RG',
-      type: 'text',
-      placeholder: 'Digite seu RG',
-      required: true,
-      formatter: formatRG,
-    },
+      categoryName: 'Dados Pessoais',
+      fields: [
+        {
+          name: 'cpf',
+          label: 'CPF',
+          type: 'text',
+          placeholder: 'Digite seu CPF',
+          required: true,
+          formatter: formatCPF,
+        },
+        {
+          name: 'nome',
+          label: 'Nome Completo',
+          type: 'text',
+          placeholder: 'Digite seu nome',
+          required: true,
+        },
+        {
+          name: 'rg',
+          label: 'RG',
+          type: 'text',
+          placeholder: 'Digite seu RG',
+          required: true,
+          formatter: formatRG,
+        },
 
-    {
-      name: 'orgao_emissor',
-      label: 'Órgão Emissor',
-      type: 'text',
-      placeholder: 'Digite o órgão emissor do RG',
-      required: true,
-    },
-    {
-      name: 'uf_rg',
-      label: 'UF RG',
-      type: 'select',
-      placeholder: 'Selecione o estado do RG',
-      options: [
-        { label: 'Acre', value: 'AC' },
-        { label: 'Alagoas', value: 'AL' },
-        { label: 'Amapá', value: 'AP' },
-        { label: 'Amazonas', value: 'AM' },
-        { label: 'Bahia', value: 'BA' },
-        { label: 'Ceará', value: 'CE' },
-        { label: 'Distrito Federal', value: 'DF' },
-        { label: 'Espírito Santo', value: 'ES' },
-        { label: 'Goiás', value: 'GO' },
-        { label: 'Maranhão', value: 'MA' },
-        { label: 'Mato Grosso', value: 'MT' },
-        { label: 'Mato Grosso do Sul', value: 'MS' },
-        { label: 'Minas Gerais', value: 'MG' },
-        { label: 'Pará', value: 'PA' },
-        { label: 'Paraíba', value: 'PB' },
-        { label: 'Paraná', value: 'PR' },
-        { label: 'Pernambuco', value: 'PE' },
-        { label: 'Piauí', value: 'PI' },
-        { label: 'Rio de Janeiro', value: 'RJ' },
-        { label: 'Rio Grande do Norte', value: 'RN' },
-        { label: 'Rio Grande do Sul', value: 'RS' },
-        { label: 'Rondônia', value: 'RO' },
-        { label: 'Roraima', value: 'RR' },
-        { label: 'Santa Catarina', value: 'SC' },
-        { label: 'São Paulo', value: 'SP' },
-        { label: 'Sergipe', value: 'SE' },
-        { label: 'Tocantins', value: 'TO' },
+        {
+          name: 'uf_rg',
+          label: 'UF RG',
+          type: 'select',
+          placeholder: 'Ex: Acre',
+          options: [
+            { label: 'Acre', value: 'AC' },
+            { label: 'Alagoas', value: 'AL' },
+            { label: 'Amapá', value: 'AP' },
+            { label: 'Amazonas', value: 'AM' },
+            { label: 'Bahia', value: 'BA' },
+            { label: 'Ceará', value: 'CE' },
+            { label: 'Distrito Federal', value: 'DF' },
+            { label: 'Espírito Santo', value: 'ES' },
+            { label: 'Goiás', value: 'GO' },
+            { label: 'Maranhão', value: 'MA' },
+            { label: 'Mato Grosso', value: 'MT' },
+            { label: 'Mato Grosso do Sul', value: 'MS' },
+            { label: 'Minas Gerais', value: 'MG' },
+            { label: 'Pará', value: 'PA' },
+            { label: 'Paraíba', value: 'PB' },
+            { label: 'Paraná', value: 'PR' },
+            { label: 'Pernambuco', value: 'PE' },
+            { label: 'Piauí', value: 'PI' },
+            { label: 'Rio de Janeiro', value: 'RJ' },
+            { label: 'Rio Grande do Norte', value: 'RN' },
+            { label: 'Rio Grande do Sul', value: 'RS' },
+            { label: 'Rondônia', value: 'RO' },
+            { label: 'Roraima', value: 'RR' },
+            { label: 'Santa Catarina', value: 'SC' },
+            { label: 'São Paulo', value: 'SP' },
+            { label: 'Sergipe', value: 'SE' },
+            { label: 'Tocantins', value: 'TO' },
+          ],
+          required: true,
+        },
+
+        {
+          name: 'orgao_emissor',
+          label: 'Órgão Emissor',
+          type: 'text',
+          placeholder: 'Digite o órgão emissor do RG',
+          required: true,
+        },
+        {
+          name: 'data_emissao_rg',
+          label: 'Data de Emissão do RG',
+          type: 'date',
+          required: true,
+        },
+        {
+          name: 'data_nascimento',
+          label: 'Data de Nascimento',
+          type: 'date',
+          required: true,
+        },
+        {
+          name: 'nacionalidade',
+          label: 'Nacionalidade',
+          type: 'text',
+          placeholder: 'Digite sua nacionalidade',
+          required: true,
+        },
+        {
+          name: 'cnh',
+          label: 'CNH',
+          type: 'text',
+          placeholder: 'Digite sua CNH',
+          required: false,
+          formatter: formatCNH,
+        },
       ],
-      required: true,
     },
     {
-      name: 'data_emissao_rg',
-      label: 'Data de Emissão do RG',
-      type: 'date',
-      required: true,
+      categoryName: 'Endereço',
+      fields: [
+        {
+          name: 'cep_endereco',
+          label: 'CEP do Endereço',
+          type: 'text',
+          placeholder: 'Digite o CEP do endereço',
+          required: true,
+          formatter: formatCEP,
+        },
+        {
+          name: 'rua',
+          label: 'Rua',
+          type: 'text',
+          placeholder: 'Digite o nome da rua',
+          required: true,
+        },
+        {
+          name: 'numero',
+          label: 'Número',
+          type: 'text',
+          placeholder: 'Digite o número',
+          required: true,
+        },
+        {
+          name: 'complemento',
+          label: 'Complemento',
+          type: 'text',
+          placeholder: 'Digite o complemento',
+          required: false,
+        },
+        {
+          name: 'bairro',
+          label: 'Bairro',
+          type: 'text',
+          placeholder: 'Digite o bairro',
+          required: true,
+        },
+        {
+          name: 'cidade',
+          label: 'Cidade',
+          type: 'text',
+          placeholder: 'Digite a cidade',
+          required: true,
+        },
+        {
+          name: 'estado',
+          label: 'Estado',
+          type: 'text',
+          placeholder: 'Digite o estado',
+          required: true,
+        },
+      ],
     },
     {
-      name: 'cnh',
-      label: 'CNH',
-      type: 'text',
-      placeholder: 'Digite sua CNH',
-      required: false,
-      formatter: formatCNH,
-    },
-    {
-      name: 'cpf',
-      label: 'CPF',
-      type: 'text',
-      placeholder: 'Digite seu CPF',
-      required: true,
-      formatter: formatCPF,
-    },
-    {
-      name: 'data_nascimento',
-      label: 'Data de Nascimento',
-      type: 'date',
-      required: true,
-    },
-    {
-      name: 'nacionalidade',
-      label: 'Nacionalidade',
-      type: 'text',
-      placeholder: 'Digite sua nacionalidade',
-      required: true,
-    },
-    {
-      name: 'cep_endereco',
-      label: 'CEP do Endereço',
-      type: 'text',
-      placeholder: 'Digite o CEP do endereço',
-      required: true,
-      formatter: formatCEP,
-    },
-    {
-      name: 'rua',
-      label: 'Rua',
-      type: 'text',
-      placeholder: 'Digite o nome da rua',
-      required: true,
-    },
-    {
-      name: 'numero',
-      label: 'Número',
-      type: 'text',
-      placeholder: 'Digite o número',
-      required: true,
-    },
-    {
-      name: 'complemento',
-      label: 'Complemento',
-      type: 'text',
-      placeholder: 'Digite o complemento',
-      required: false,
-    },
-    {
-      name: 'bairro',
-      label: 'Bairro',
-      type: 'text',
-      placeholder: 'Digite o bairro',
-      required: true,
-    },
-    {
-      name: 'cidade',
-      label: 'Cidade',
-      type: 'text',
-      placeholder: 'Digite a cidade',
-      required: true,
-    },
-    {
-      name: 'estado',
-      label: 'Estado',
-      type: 'text',
-      placeholder: 'Digite o estado',
-      required: true,
-    },
-    {
-      name: 'telefone',
-      label: 'Telefone',
-      type: 'text',
-      placeholder: 'Digite seu telefone',
-      required: true,
-      formatter: formatCellPhone,
-    },
-    {
-      name: 'email',
-      label: 'Email',
-      type: 'email',
-      placeholder: 'Digite seu email',
-      required: true,
-    },
-    {
-      name: 'foto',
-      label: 'Foto',
-      type: 'file',
-      required: false,
-    },
-    {
-      name: 'data_cadastro',
-      label: 'Data de Cadastro',
-      type: 'date',
-      required: true,
+      categoryName: 'Contato',
+      fields: [
+        {
+          name: 'telefone',
+          label: 'Telefone',
+          type: 'text',
+          placeholder: 'Digite seu telefone',
+          required: true,
+          formatter: formatCellPhone,
+        },
+        {
+          name: 'email',
+          label: 'Email',
+          type: 'email',
+          placeholder: 'Digite seu email',
+          required: true,
+        },
+        {
+          name: 'data_cadastro',
+          label: 'Data de Cadastro',
+          type: 'date',
+          required: true,
+        },
+        {
+          name: 'foto',
+          label: 'Foto',
+          type: 'file',
+          required: false,
+        },
+      ],
     },
   ];
 
   return (
     <>
-      <Form
-        fields={fields.map((field) => ({ ...field, onChange: handleChange }))}
-        onSubmit={handleSubmit}
-        buttonVariant="primary"
-        validationSchema={validationSchema}
-      />
+      <Container>
+        <TitlePage>Cadastro de Pessoa Física</TitlePage>
+        <Form
+          categories={fieldsWithCartegory}
+          // fields={fields}
+          onSubmit={handleSubmit}
+          buttonVariant="primary"
+          validationSchema={validationSchema}
+          layout="grid"
+          gridColumns={{
+            cpf: 3,
+            nome: 5,
+            rg: 4,
+            uf_rg: 4,
+            orgao_emissor: 2,
+            data_emissao_rg: 3,
+            cnh: 6,
+            data_nascimento: 3,
+            nacionalidade: 6,
+            cep_endereco: 2,
+            rua: 3,
+            numero: 2,
+            complemento: 5,
+            bairro: 4,
+            cidade: 4,
+            estado: 4,
+            telefone: 3,
+            email: 3,
+            foto: 3,
+            data_cadastro: 3,
+          }}
+          width="100%"
+        />
+      </Container>
     </>
   );
 };

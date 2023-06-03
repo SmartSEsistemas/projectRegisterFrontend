@@ -231,7 +231,7 @@ function Home() {
           Change theme
         </Button> */}
 
-        <DivButtons>
+        {/* <DivButtons>
           <Button
             variant="primary"
             onClick={() =>
@@ -278,7 +278,7 @@ function Home() {
           onSubmit={handleSubmit}
           buttonVariant="primary"
           validationSchema={validationoOutherSchema}
-        />
+        /> */}
 
         <Container>
           <ModulosContainer>
