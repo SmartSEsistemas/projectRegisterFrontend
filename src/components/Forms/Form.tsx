@@ -33,6 +33,7 @@ export interface Field {
   required: boolean;
   formatter?: (value: string) => string;
   options?: FieldOption[]; // options for select type
+  onChange?: (value: any, formik: any) => Promise<void>; // add this line
 }
 
 export interface FieldCategory {
@@ -81,6 +82,14 @@ const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
     resolver: zodResolver(validationSchema),
   });
 
+  const fetchAddress = async (cep: any) => {
+    const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    if (!response.ok) throw new Error('CEP não encontrado');
+    const address = await response.json();
+    if (address.erro) throw new Error('CEP não encontrado');
+    return address;
+  };
+
   const renderFields = (fieldsArray: Field[]) =>
     fieldsArray.map((field, index) => {
       const fieldValue = watch(field.name);
@@ -91,6 +100,19 @@ const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
 
         if (field.formatter) {
           newValue = field.formatter(newValue);
+        }
+
+        if (field.name === 'cep_endereco' && newValue.length == 9) {
+          fetchAddress(newValue)
+            .then((address) => {
+              setValue('rua', address.logradouro);
+              setValue('bairro', address.bairro);
+              setValue('cidade', address.localidade);
+              setValue('estado', address.uf);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         }
 
         setValue(field.name, newValue);
