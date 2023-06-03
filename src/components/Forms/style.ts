@@ -30,10 +30,6 @@ export const Form = styled.form<LayoutProps>`
   padding: 32px;
   box-sizing: border-box;
 
-  @media (max-width: 870px) {
-    display: flex;
-    flex-direction: column;
-  }
 `;
 
 export const ContainerDiv = styled.div<{ gridColumn?: number }>`
@@ -45,7 +41,20 @@ export const ContainerDiv = styled.div<{ gridColumn?: number }>`
   justify-content: center;
   background: transparent;
   grid-column: ${({ gridColumn }) => gridColumn && `span ${gridColumn}`};
+
+  @media (max-width: 979px) {
+    grid-column: ${({ gridColumn }) => gridColumn && `span ${4}`};
+  }
+
+  @media (max-width: 870px) {
+    grid-column: ${({ gridColumn }) => gridColumn && `span ${6}`};
+  }
+
+  @media (max-width: 600px) {
+    grid-column: ${({ gridColumn }) => gridColumn && `span ${12}`};
+  }
 `;
+
 
 
 export const Input = styled.input<InputProps>`
