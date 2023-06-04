@@ -1,7 +1,9 @@
 import { SidebarProps } from '@/@types/sideBar/SideBar';
+import CreatePessoaFisicaContainer from '@/Containers/PessoaFisicaCadastroContainer';
 import Layout from '@/components/Layout';
+import { GetServerSideProps } from 'next';
 
-const ModuloCadastro = () => {
+const CreatePessoaFisica = () => {
   const modulosData: SidebarProps = {
     data: [
       {
@@ -101,10 +103,25 @@ const ModuloCadastro = () => {
   };
 
   return (
-    <Layout dataSideBar={modulosData}>
-      <h1>Cadastro</h1>
-    </Layout>
+    <>
+      <Layout dataSideBar={modulosData}>
+        <CreatePessoaFisicaContainer />
+      </Layout>
+    </>
   );
 };
 
-export default ModuloCadastro;
+export default CreatePessoaFisica;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const isAuthenticated = true;
+
+  // Você deve substituir esta função de acordo com a sua lógica de autenticação.
+
+  if (!isAuthenticated) {
+    context.res.writeHead(302, { Location: '/login' });
+    context.res.end();
+  }
+
+  return { props: {} };
+};

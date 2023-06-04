@@ -2,12 +2,13 @@ import styled, { css } from 'styled-components';
 
 // style.ts
 export const SidebarContainer = styled.aside`
-  top: 0;
-  left: 0;
-  bottom: 0;
-  position: relative;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
   width: 80px;
   z-index: 100;
+  flex-shrink: 0;
+  /* height: 100%; */
   background-color: ${({ theme }) =>
     theme.theme === 'dark' ? theme.background : theme.background};
   color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
@@ -16,7 +17,7 @@ export const SidebarContainer = styled.aside`
   transition: 0.5s ease;
 
   &.openSideBar {
-    width: 350px;
+    width: 280px;
   }
 
   &.closeSideBar {
@@ -33,6 +34,7 @@ export const SidebarContainer = styled.aside`
     svg {
       z-index: 10;
       margin-left: 10px;
+      fill: rgba(0, 0, 0, 0.5);
     }
   }
 `;
@@ -135,8 +137,8 @@ export const SidebarMenuItem = styled.li`
           background: ${({ theme }) => theme.light};
           border-bottom-left-radius: 5px;
           border-bottom-right-radius: 5px;
-          box-shadow: 1px 4px 4px 1px rgba(0, 0, 0, 0.1),
-            -1px 4px 4px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.1),
+            -1px 4px 3px 1px rgba(0, 0, 0, 0.1);
           border-left: none;
         }
       }
@@ -232,12 +234,12 @@ export const ContainerButton = styled.div`
   width: 40px;
   height: 36px;
   position: absolute;
-  left: 115%;
+  left: 90px;
   transition: all 0.5s;
   cursor: pointer;
 
   &.activeClose {
-    left: 80%;
+    left: 225px;
   }
 `;
 

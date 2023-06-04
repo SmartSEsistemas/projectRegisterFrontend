@@ -4,6 +4,7 @@ import { useState, useEffect, FC, ReactElement } from 'react';
 import {
   CloseIconWrapper,
   ContainerModulos,
+  ContainerModulosLink,
   ContainerModulosModal,
   ContainerPortal,
   ContentWrapper,
@@ -13,15 +14,14 @@ import {
 } from './style';
 import Link from 'next/link';
 import { X } from '@phosphor-icons/react';
+import { Router } from 'next/router';
 
 interface ModulosProps {
   nomeModulo: string;
-  submodulos: {
-    name: string;
-    link: string;
-  }[];
+  submodulos?: string[];
   Icone?: any;
   theme: any;
+  routers?: any;
 }
 
 const Modulos: FC<ModulosProps> = ({
@@ -29,6 +29,7 @@ const Modulos: FC<ModulosProps> = ({
   submodulos,
   Icone = null,
   theme,
+  routers,
 }) => {
   const [open, setOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -42,14 +43,21 @@ const Modulos: FC<ModulosProps> = ({
 
   return (
     <>
-      {!open && (
+      {!open && submodulos && (
         <ContainerModulos onClick={handleOpen}>
-          {Icone && <Icone size={40} weight='regular' color={theme.primary} />}
+          {Icone && <Icone size={40} weight="regular" color={theme.primary} />}
           <Title>{nomeModulo}</Title>
         </ContainerModulos>
       )}
 
-      {isClient && (
+      {!submodulos && (
+        <ContainerModulosLink href={`${routers}`}>
+          {Icone && <Icone size={40} weight="regular" color={theme.primary} />}
+          <Title>{nomeModulo}</Title>
+        </ContainerModulosLink>
+      )}
+
+      {isClient && submodulos && (
         <Portal>
           <Dialog open={open} onOpenChange={handleClose}>
             <DialogOverlay
@@ -79,7 +87,7 @@ const Modulos: FC<ModulosProps> = ({
                         key={index}
                         count={submodulos.length}
                       >
-                        <Title>{submodulo.name}</Title>
+                        <Title>{submodulo}</Title>
                       </ContainerModulosModal>
                     ))}
                   </ContentWrapper>

@@ -1,23 +1,30 @@
 // pages/index.tsx
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import HomeContainer from '@/Containers/HomeContainer';
+import Layout from '@/components/Layout';
+import { SidebarProps } from '@/@types/sideBar/SideBar';
 
-const IndexPage = () => {
-  const router = useRouter();
+// Conteúdo da sua antiga página home
 
-  useEffect(() => {
-    router.replace('/home');
-  }, []);
-
-  return null; // você pode retornar um elemento de carregamento aqui, se quiser
+const HomePage = () => {
+  return (
+    <Layout>
+      <HomeContainer />
+    </Layout>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  context.res.writeHead(302, { Location: '/home' });
-  context.res.end();
+  const isAuthenticated = true;
+
+  // Você deve substituir esta função de acordo com a sua lógica de autenticação.
+
+  if (!isAuthenticated) {
+    context.res.writeHead(302, { Location: '/login' });
+    context.res.end();
+  }
 
   return { props: {} };
 };
 
-export default IndexPage;
+export default HomePage;

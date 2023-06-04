@@ -23,13 +23,8 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import Link from 'next/link';
 import { Moon, Sun } from '@phosphor-icons/react';
 
-const Navbar = ({ onMenuClick }: { onMenuClick: () => void }) => {
+const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext); // Acesse o tema atual
-
-  const handleClick = () => {
-    console.log('click');
-    onMenuClick();
-  };
 
   const handleClickTheme = () => {
     toggleTheme();
@@ -49,8 +44,8 @@ const Navbar = ({ onMenuClick }: { onMenuClick: () => void }) => {
           <DropdownMenu.Trigger asChild>
             <AvatarRoot>
               <AvatarImage
-                src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
-                alt='Colm Tuite'
+                src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
+                alt="Colm Tuite"
               />
               <AvatarFallback delayMs={600}>CT</AvatarFallback>
             </AvatarRoot>

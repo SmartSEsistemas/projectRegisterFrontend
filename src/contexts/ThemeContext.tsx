@@ -1,5 +1,5 @@
-import { Theme, alternativeTheme, defaultTheme } from "@/styles/theme/default";
-import { createContext, useState } from "react";
+import { Theme, alternativeTheme, defaultTheme } from '@/styles/theme/default';
+import { createContext, useState } from 'react';
 
 interface ThemeContextProps {
   theme: Theme;
@@ -11,12 +11,14 @@ export const ThemeContext = createContext<ThemeContextProps>({
   toggleTheme: () => {},
 });
 
-export const ThemeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+export const ThemeProvider: React.FC<React.PropsWithChildren<{}>> = ({
+  children,
+}) => {
   const [currentTheme, setCurrentTheme] = useState<Theme>(defaultTheme);
 
   const toggleTheme = () => {
     setCurrentTheme((prevTheme) =>
-      prevTheme === defaultTheme ? alternativeTheme : defaultTheme
+      prevTheme === defaultTheme ? alternativeTheme : defaultTheme,
     );
   };
 

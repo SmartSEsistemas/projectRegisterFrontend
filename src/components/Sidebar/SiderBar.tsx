@@ -13,19 +13,9 @@ import {
 } from './style';
 import { ICONS } from '@/utils/Icons';
 import Link from 'next/link';
+import { SidebarProps } from '@/@types/sideBar/SideBar';
 
-interface SidebarProps {
-  modulosData: {
-    nomeModulo: string;
-    icone: any;
-    submodulos: {
-      name: string;
-      link: string;
-    }[];
-  }[];
-}
-
-export const Sidebar: React.FC<SidebarProps> = ({ modulosData }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ data }) => {
   const [isOpenBar, setIsOpenBar] = useState(false);
   const listItemsSideBar = useRef<HTMLUListElement | null>(null);
 
@@ -101,7 +91,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ modulosData }) => {
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu ref={listItemsSideBar}>
-          {modulosData.map((modulo, index) => {
+          {data.map((modulo, index) => {
             const Icone = ICONS[modulo.icone as keyof typeof ICONS];
             return (
               <SidebarMenuItem
@@ -111,7 +101,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ modulosData }) => {
                 onClick={handleItem}
               >
                 <TabItem>
-                  <Icone size={isOpenBar ? 20 : 25} weight='regular' />
+                  <Icone size={isOpenBar ? 20 : 25} weight="regular" />
                   <p>{modulo.nomeModulo}</p>
                 </TabItem>
                 <SubModule>
