@@ -27,7 +27,7 @@ import {
   ErrorMessage,
 } from '../../styles/login/styles';
 import { Button } from '@/components/Buttons/Button';
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { ThemeContext } from '@/contexts/ThemeContext';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -42,6 +42,7 @@ import { useRouter } from 'next/router';
 import { UserLogin } from '@/@types/login/UserLogin';
 import { GET_TOKEN } from '@/api/login/login';
 import { setLocalStorage } from '@/utils/localStorage';
+import { useToast } from '@/hooks/useToast';
 
 export interface FieldArray extends Array<Field> {}
 interface Field {
@@ -59,6 +60,7 @@ interface ListSelect {
 }
 
 const Login = () => {
+  const { showToast } = useToast();
   const { theme } = useContext(ThemeContext);
   const [isClient, setIsClient] = useState(false);
   const { error, data, loading, request } = useFetch<{ token: string }>();
@@ -76,6 +78,7 @@ const Login = () => {
       );
     } catch (error) {
       setErr({ error: true, message: 'Erro ao pegar no das entidades.' });
+      showToast('Erro ao pegar dados das entidades.', 'error');
     }
   }, []);
 
@@ -140,6 +143,7 @@ const Login = () => {
       router.push('/');
       setLocalStorage('token', json.token);
     }
+    if (error.value) showToast(error.Message, 'error');
   };
 
   const fields: FieldArray = [
