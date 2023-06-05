@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
-export type StatusColor =   | 'primary' | 'secondary' | 'warning' | 'danger' | 'lightGray' | 'dark' | 'light' | 'blue';
+export type StatusColor =   | 'primary' | 'secondary' | 'warning' | 'danger' | 'lightGray' | 'dark' | 'light' | 'blue' | 'gray-100';
 
 
 export interface StatusProps {
@@ -12,7 +12,8 @@ export interface StatusProps {
     | 'lightGray'
     | 'dark'
     | 'light'
-    | 'blue';
+    | 'blue'
+    | 'gray-100'
     
   gridArea?: string;
 }
@@ -59,4 +60,5 @@ export const STATUS_COLORS = {
   dark: 'dark',
   light: 'light',
   blue: 'blue',
+  "gray-100": 'gray-100',
 } as const;

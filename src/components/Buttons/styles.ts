@@ -24,9 +24,9 @@ export const PrimaryButton = styled(ButtonBase)`
 
 const getTextColor = (theme: any, statusColor: StatusColor) => {
   const backgroundColor = theme[STATUS_COLORS[statusColor]];
-  const darkTextBackgrounds = [theme['light'], theme['lightGray']];
+const darkTextBackgrounds = [theme['light'], theme['lightGray'], theme['gray-100']];
 
   return darkTextBackgrounds.includes(backgroundColor)
-    ? theme['dark']
-    : theme['light'];
+  ? "#495057"
+    : "#FFFFFF";
 };

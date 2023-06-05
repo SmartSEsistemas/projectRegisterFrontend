@@ -12,7 +12,8 @@ interface ButtonProps {
     | 'lightGray'
     | 'dark'
     | 'light'
-    | 'blue';
+    | 'blue'
+    | "gray-100"
   styles?: React.CSSProperties;
   disabled?: boolean;
   children?: React.ReactNode;

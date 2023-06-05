@@ -11,6 +11,8 @@ export interface Theme {
   dark: string;
   light: string;
   blue: string;
+  "gray-100": string;
+  textColor: string;
 }
 
 export const defaultTheme: Theme = {
@@ -25,6 +27,8 @@ export const defaultTheme: Theme = {
   dark: '#000000',
   light: '#ffffff',
   blue: '#457eff',
+  "gray-100": '#e5e5e5',
+  textColor: '#495057',
 };
 
 export const alternativeTheme: Theme = {
@@ -39,4 +43,6 @@ export const alternativeTheme: Theme = {
   dark: '#000000',
   light: '#ffffff',
   blue: '#457eff',
+  "gray-100": '#e5e5e5',
+  textColor: '#A6B0CF',
 };

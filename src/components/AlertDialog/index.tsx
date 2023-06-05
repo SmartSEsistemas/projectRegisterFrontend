@@ -37,12 +37,12 @@ export const Dialog: React.FC<DialogProps> = ({
           <AlertDialogDescription>{description}</AlertDialogDescription>
           <div style={{ display: 'flex', gap: 25, justifyContent: 'flex-end' }}>
             <AlertDialog.Cancel asChild>
-              <Button type="button" variant="blue" onClick={onCancel}>
+              <Button type="button" variant='gray-100' onClick={onCancel}>
                 {cancelButtonContent}
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action asChild>
-              <Button type="button" variant="blue" onClick={onConfirm}>
+              <Button type="button" variant="primary" onClick={onConfirm}>
                 {confirmButtonContent}
               </Button>
             </AlertDialog.Action>
