@@ -10,33 +10,33 @@ export interface Theme {
   lightGray: string;
   dark: string;
   light: string;
+  blue: string;
 }
 
-
-
 export const defaultTheme: Theme = {
-  theme: "light",
-  background: "#F8F8FB",
-  borderColor: "#CED4DA",
-  primary: "#00c489",
-  secondary: "#14213d",
-  warning: "#f1b44c",
-  danger: "#f46a6a",
-  lightGray: "#e5e5e5",
-  dark: "#000000",
-  light: "#ffffff",
-
+  theme: 'light',
+  background: '#F8F8FB',
+  borderColor: '#CED4DA',
+  primary: '#00c489',
+  secondary: '#14213d',
+  warning: '#f1b44c',
+  danger: '#f46a6a',
+  lightGray: '#e5e5e5',
+  dark: '#000000',
+  light: '#ffffff',
+  blue: '#457eff',
 };
 
 export const alternativeTheme: Theme = {
-  theme: "dark",
-  background: "#222736",
-  borderColor: "#32394e",
-  primary: "#457eff",
-  secondary: "#14213d",
-  warning: "#f1b44c",
-  danger: "#f46a6a",
-  lightGray: "#e5e5e5",
-  dark: "#000000",
-  light: "#ffffff",
+  theme: 'dark',
+  background: '#222736',
+  borderColor: '#32394e',
+  primary: '#457eff',
+  secondary: '#14213d',
+  warning: '#f1b44c',
+  danger: '#f46a6a',
+  lightGray: '#e5e5e5',
+  dark: '#000000',
+  light: '#ffffff',
+  blue: '#457eff',
 };

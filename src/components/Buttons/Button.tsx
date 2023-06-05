@@ -1,21 +1,46 @@
-import { PrimaryButton } from "./styles";
+import { any } from 'zod';
+import { PrimaryButton } from './styles';
 
 interface ButtonProps {
-  onClick?: () => void;
-  type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "warning" | "danger" | "lightGray" | "dark" | "light";
-  styles? : React.CSSProperties;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: 'button' | 'submit' | 'reset';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'warning'
+    | 'danger'
+    | 'lightGray'
+    | 'dark'
+    | 'light'
+    | 'blue';
+  styles?: React.CSSProperties;
   disabled?: boolean;
   children?: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({disabled = false, type = "button", onClick, variant = "primary", children, styles}) => {
-  const handleClick = () => {
+export const Button: React.FC<ButtonProps> = ({
+  disabled = false,
+  type = 'button',
+  onClick,
+  variant = 'primary',
+  children,
+  styles,
+}) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (onClick) {
-      onClick();
+      onClick(event);
     }
   };
 
-  return <PrimaryButton style={styles} statusColor={variant} onClick={handleClick} type={type}  disabled={disabled} >{children}</PrimaryButton>;
-
+  return (
+    <PrimaryButton
+      style={styles}
+      statusColor={variant}
+      onClick={handleClick}
+      type={type}
+      disabled={disabled}
+    >
+      {children}
+    </PrimaryButton>
+  );
 };

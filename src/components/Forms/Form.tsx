@@ -19,6 +19,8 @@ import {
 } from './style';
 import Select from 'react-select';
 import { Info, Upload } from '@phosphor-icons/react';
+import { useRouter } from 'next/router';
+import { Dialog } from '../AlertDialog';
 
 interface FieldOption {
   value: string;
@@ -50,6 +52,7 @@ interface FormularioGenerioProps {
   layout?: 'flex' | 'grid';
   width?: string;
   gridColumns?: Record<string, number>;
+  backRoute?: string; // Add this line
 }
 
 const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
@@ -61,10 +64,13 @@ const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
   layout = 'flex',
   width = '900px',
   gridColumns,
+  backRoute = '/',
 }) => {
   const { theme } = useContext(ThemeContext); // Acesse o tema atual
   const [selectOpen, setSelectOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsClient(true);
@@ -81,6 +87,8 @@ const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
     mode: 'onChange',
     resolver: zodResolver(validationSchema),
   });
+
+  console.log(open);
 
   const fetchAddress = async (cep: any) => {
     const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
@@ -175,15 +183,16 @@ const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
                 control: (provided, state) => ({
                   ...provided,
                   height: '48px',
-                  borderColor: state.isFocused
-                    ? theme.primary
-                    : theme.borderColor,
-                  boxShadow: state.isFocused
-                    ? `0 0 5px ${theme.primary}`
-                    : 'none',
+                  borderColor: state.isFocused ? theme.blue : theme.borderColor,
+                  boxShadow: state.isFocused ? `0 0 5px ${theme.blue}` : 'none',
                   '&:hover': { borderColor: 'none' },
-                  backgroundColor:
-                    theme.theme === 'dark' ? '#2A3042' : '#eff2f7',
+                  backgroundColor: state.isFocused
+                    ? theme.theme === 'dark'
+                      ? '#2A3042'
+                      : '#fff'
+                    : theme.theme === 'dark'
+                    ? '#2A3042'
+                    : '#FBFCFC',
                 }),
                 container: (provided, state) => ({
                   ...provided,
@@ -264,11 +273,28 @@ const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
             ))
           : fields && renderFields(fields)}
         <ButtonContainer layout={layout}>
+          <Button
+            variant={buttonVariant}
+            type="button"
+            onClick={() => setOpen(true)}
+          >
+            Voltar
+          </Button>
           <Button variant={buttonVariant} type="submit" disabled={!isValid}>
             Enviar
           </Button>
         </ButtonContainer>
       </Form>
+      <Dialog
+        title="Você tem certeza que deseja voltar?"
+        cancelButtonContent="Cancelar"
+        confirmButtonContent="Confirmar"
+        description="Se você voltar, todas as informações inseridas serão perdidas."
+        onOpenChange={setOpen}
+        onConfirm={() => router.push(backRoute)}
+        open={open}
+        onCancel={() => setOpen(false)}
+      />{' '}
     </>
   );
 };

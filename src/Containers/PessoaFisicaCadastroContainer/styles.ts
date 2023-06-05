@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -11,21 +11,17 @@ export const Container = styled.div`
   box-sizing: border-box;
 
   @media (max-width: 870px) {
-    padding: 1.5rem 0 1.5rem 0 ;
+    padding: 1.5rem 0 1.5rem 0;
   }
 `;
 
 export const TitlePage = styled.h1`
   font-size: 2rem;
-  color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.blue};
   margin-bottom: 2rem;
   text-align: center;
 
   @media (max-width: 870px) {
     font-size: 1.5rem;
   }
-
 `;
-
-
-
