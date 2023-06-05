@@ -48,6 +48,12 @@ export const MainContainer = styled.div`
   flex-direction: row;
 `;
 
+export const MainContent = styled.div`
+  transition: margin-left 0.5s;
+  width: 100%;
+  min-height: 110vh;
+`;
+
 export const STATUS_COLORS = {
   primary: 'primary',
   secondary: 'secondary',

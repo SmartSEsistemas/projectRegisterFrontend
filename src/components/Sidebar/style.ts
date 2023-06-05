@@ -34,7 +34,10 @@ export const SidebarContainer = styled.aside`
     svg {
       z-index: 10;
       margin-left: 10px;
-      fill: rgba(0, 0, 0, 0.5);
+      fill: ${({ theme }) =>
+        theme.theme === 'dark'
+          ? 'rgba(255, 255, 255, 0.5)'
+          : 'rgba(0, 0, 0, 0.5)'};
     }
   }
 `;
@@ -86,7 +89,7 @@ export const SidebarMenuItem = styled.li`
     & div:nth-child(1) {
       background: ${({ theme }) => theme.light};
       box-shadow: 1px 0px 4px 1px rgba(0, 0, 0, 0.1);
-      animation: openTab 0.5s forwards;
+      animation: openTab 0.4s forwards;
       position: absolute;
     }
 
@@ -141,6 +144,10 @@ export const SidebarMenuItem = styled.li`
             -1px 4px 3px 1px rgba(0, 0, 0, 0.1);
           border-left: none;
         }
+
+        & a {
+          color: ${({ theme }) => theme.secondary};
+        }
       }
     }
   }
@@ -178,15 +185,15 @@ export const SubModule = styled.ul`
   box-shadow: 0;
   margin: 0px 0px 0px 11px;
   padding-left: 8px;
-  border-left: 1px solid rgba(29, 202, 150, 0.4);
+  border-left: 1px solid ${({ theme }) => theme.primary};
   overflow: hidden;
 
-  & li {
+  & a {
     transition: 0.3s;
     width: 100%;
     padding: 8px 0px 8px 8px;
     border-radius: 5px;
-    color: #000;
+    color: ${({ theme }) => theme.theme};
     display: inline-block;
 
     &:hover {

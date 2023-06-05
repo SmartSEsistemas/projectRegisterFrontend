@@ -11,13 +11,7 @@ import Form, { Field } from '@/components/Forms/Form';
 import Modulos from '@/components/Modulos';
 import { ICONS } from '@/utils/Icons';
 
-import {
-  Alert,
-  Container,
-  DivButtons,
-  MainContent,
-  ModulosContainer,
-} from './styles';
+import { Alert, Container, DivButtons, ModulosContainer } from './styles';
 import { Button } from '@/components/Buttons/Button';
 
 export type FieldArray = Array<Field>;
@@ -183,20 +177,7 @@ function Home() {
 
   return (
     <>
-      {/* <div>
-        <Navbar
-          onMenuClick={handleMenuClick}
-          isSidebarVisible={isSidebarVisible}
-        />
-        {isSidebarVisible && (
-          <div ref={sidebarRef}>
-            <Sidebar modulosData={modulosData} />
-          </div>
-        )}
-      </div> */}
-
-      <MainContent>
-        {/* <DivButtons >
+      {/* <DivButtons >
           <Button variant="primary" onClick={() => showToast("Alert Success", "success")}>
             Primary
           </Button>
@@ -227,11 +208,11 @@ function Home() {
           validationSchema={validationoOutherSchema}
         />  */}
 
-        {/* <Button variant="primary" onClick={handleClick}>
+      {/* <Button variant="primary" onClick={handleClick}>
           Change theme
         </Button> */}
 
-        {/* <DivButtons>
+      {/* <DivButtons>
           <Button
             variant="primary"
             onClick={() =>
@@ -280,26 +261,25 @@ function Home() {
           validationSchema={validationoOutherSchema}
         /> */}
 
-        <Container>
-          <ModulosContainer>
-            {modulosData.map((modulo, index) => {
-              const IconeComponent = ICONS[modulo.icone as keyof typeof ICONS];
-              return (
-                <Modulos
-                  key={index}
-                  nomeModulo={modulo.nomeModulo}
-                  submodulos={modulo.submodulos}
-                  Icone={IconeComponent}
-                  theme={theme}
-                  routers={modulo.router}
-                />
-              );
-            })}
-          </ModulosContainer>
-        </Container>
+      <Container>
+        <ModulosContainer>
+          {modulosData.map((modulo, index) => {
+            const IconeComponent = ICONS[modulo.icone as keyof typeof ICONS];
+            return (
+              <Modulos
+                key={index}
+                nomeModulo={modulo.nomeModulo}
+                submodulos={modulo.submodulos}
+                Icone={IconeComponent}
+                theme={theme}
+                routers={modulo.router}
+              />
+            );
+          })}
+        </ModulosContainer>
+      </Container>
 
-        <Alert limit={5} />
-      </MainContent>
+      <Alert limit={5} />
     </>
   );
 }

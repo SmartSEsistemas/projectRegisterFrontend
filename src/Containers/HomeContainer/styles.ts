@@ -11,11 +11,6 @@ export const Alert = styled(ToastContainer)`
   }
 `;
 
-export const MainContent = styled.div`
-  transition: margin-left 0.5s;
-  width: 100%;
-`;
-
 export const DivButtons = styled.div`
   display: flex;
   gap: 5px;
