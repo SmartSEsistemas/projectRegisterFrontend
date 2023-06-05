@@ -29,7 +29,6 @@ export const Form = styled.form<LayoutProps>`
   margin: 0 auto;
   padding: 32px;
   box-sizing: border-box;
-
 `;
 
 export const ContainerDiv = styled.div<{ gridColumn?: number }>`
@@ -55,8 +54,6 @@ export const ContainerDiv = styled.div<{ gridColumn?: number }>`
   }
 `;
 
-
-
 export const Input = styled.input<InputProps>`
   width: 100%;
   height: 48px;
@@ -64,7 +61,7 @@ export const Input = styled.input<InputProps>`
   border-radius: 5px;
   padding: 0 10px;
   background-color: ${({ theme }) =>
-    theme.theme === 'dark' ? '#2A3042' : "#eff2f7"};
+    theme.theme === 'dark' ? '#2A3042' : '#FBFCFC'};
 
   margin-bottom: ${({ layout }) => (layout == 'grid' ? '0' : '16px')};
 
@@ -83,14 +80,17 @@ export const Input = styled.input<InputProps>`
   }
 
   &:focus {
-    border-color: ${({ hasError, theme }) =>
-      hasError ? 'red' : theme.primary};
+    border-color: ${({ hasError, theme }) => (hasError ? 'red' : theme.blue)};
     box-shadow: 0 0 5px
-      ${({ hasError, theme }) => (hasError ? 'red' : theme.primary)};
-      background-color: ${({ theme }) =>
-    theme.theme === 'dark' ? '#2A3042' : theme.light};  }
+      ${({ hasError, theme }) => (hasError ? 'red' : theme.blue)};
+    background-color: ${({ theme }) =>
+      theme.theme === 'dark' ? '#2A3042' : theme.light};
+  }
 
-
+  &:disabled {
+    background-color: ${({ theme }) =>
+      theme.theme === 'dark' ? '#2A3042' : '#eff2f7'};
+  }
   &[type='file'] {
     display: none;
   }
@@ -117,20 +117,13 @@ export const Optional = styled.span`
 export const ButtonContainer = styled.div<{ layout?: 'flex' | 'grid' }>`
   grid-column: span 12;
   width: 100%;
+  gap: 1rem;
   display: flex;
   justify-content: flex-end;
   margin-top: ${({ layout }) => (layout === 'grid' ? '0' : '16px')};
-  border-top: ${({ layout, theme }) => (layout === 'grid' ? `1px solid ${theme.borderColor}` : 'none')};
+  border-top: ${({ layout, theme }) =>
+    layout === 'grid' ? `1px solid ${theme.borderColor}` : 'none'};
   padding-top: ${({ layout, theme }) => (layout === 'grid' ? '24px' : 'none')};
-`;
-
-export const CartegoryName = styled.h2<{ layout?: 'flex' | 'grid' , index?: number}>`
-  font-size: 24px;
-  font-weight: bold;
-  color: ${({ theme }) => theme.primary};
-  border-top: ${({ layout, theme, index }) =>  (layout === 'grid' && index != undefined && index > 0 ? `1px solid ${theme.borderColor}` : 'none')};
-  padding-top: 24px;
-
 `;
 
 export const FileLabel = styled.label`
@@ -142,29 +135,29 @@ export const FileLabel = styled.label`
   cursor: pointer;
   border-radius: 0.25em;
   font-size: 1rem;
-  border: 1px dashed ${({ theme }) => theme.primary};
+  border: 1px dashed ${({ theme }) => theme.blue};
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) =>
-    theme.theme === 'dark' ? '#2A3042' : "#eff2f7"};
-  
+    theme.theme === 'dark' ? '#2A3042' : '#FBFCFC'};
+
   :hover {
     background-color: ${({ theme }) =>
-    theme.theme === 'dark' ? '#2A3042' : theme.light};
+      theme.theme === 'dark' ? '#2A3042' : theme.light};
     transition: all ease 0.3s;
   }
 `;
 
 export const IconUpload = styled(UploadSimple)`
-  color: ${({ theme }) => theme.primary};
-`
+  color: ${({ theme }) => theme.blue};
+`;
 
 export const ErrorMessage = styled.span<{ hasError?: boolean }>`
   visibility: ${({ hasError }) => (hasError ? 'visible' : 'hidden')};
-  position: absolute; 
+  position: absolute;
   bottom: -25px; // ajuste o valor conforme necessário
   left: 0;
-  min-height: 20px;  
+  min-height: 20px;
   color: red;
   font-size: 12px;
   padding-left: 0.5rem;
@@ -173,5 +166,16 @@ export const ErrorMessage = styled.span<{ hasError?: boolean }>`
   gap: 4px;
 `;
 
-
-
+export const CartegoryName = styled.h2<{
+  layout?: 'flex' | 'grid';
+  index?: number;
+}>`
+  font-size: 24px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.blue};
+  border-top: ${({ layout, theme, index }) =>
+    layout === 'grid' && index != undefined && index > 0
+      ? `1px solid ${theme.borderColor}`
+      : 'none'};
+  padding-top: 24px;
+`;

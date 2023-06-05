@@ -92,6 +92,12 @@ const CreatePessoaFisicaContainer = () => {
           required: true,
         },
         {
+          name: 'data_nascimento',
+          label: 'Data de Nascimento',
+          type: 'date',
+          required: true,
+        },
+        {
           name: 'rg',
           label: 'RG',
           type: 'text',
@@ -147,12 +153,6 @@ const CreatePessoaFisicaContainer = () => {
         {
           name: 'data_emissao_rg',
           label: 'Data de Emissão do RG',
-          type: 'date',
-          required: true,
-        },
-        {
-          name: 'data_nascimento',
-          label: 'Data de Nascimento',
           type: 'date',
           required: true,
         },
@@ -270,32 +270,33 @@ const CreatePessoaFisicaContainer = () => {
           categories={fieldsWithCartegory}
           // fields={fields}
           onSubmit={handleSubmit}
-          buttonVariant="primary"
+          buttonVariant="blue"
           validationSchema={validationSchema}
           layout="grid"
           gridColumns={{
-            cpf: 3,
-            nome: 5,
-            rg: 4,
-            uf_rg: 4,
-            orgao_emissor: 2,
+            cpf: 2,
+            nome: 8,
+            data_nascimento: 2,
+            rg: 3,
+            uf_rg: 3,
+            orgao_emissor: 3,
             data_emissao_rg: 3,
-            cnh: 6,
-            data_nascimento: 3,
-            nacionalidade: 6,
+            cnh: 3,
+            nacionalidade: 3,
             cep_endereco: 2,
-            rua: 3,
+            rua: 8,
             numero: 2,
-            complemento: 5,
-            bairro: 4,
-            cidade: 4,
-            estado: 4,
+            complemento: 3,
+            bairro: 3,
+            cidade: 3,
+            estado: 3,
             telefone: 3,
             email: 3,
             foto: 3,
             data_cadastro: 3,
           }}
           width="100%"
+          backRoute="/cadastro"
         />
       </Container>
     </>

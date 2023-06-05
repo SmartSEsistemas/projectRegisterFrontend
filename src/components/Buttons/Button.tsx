@@ -1,21 +1,54 @@
-import { PrimaryButton } from "./styles";
+import React from 'react';
+import { PrimaryButton } from './styles';
 
 interface ButtonProps {
-  onClick?: () => void;
-  type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "warning" | "danger" | "lightGray" | "dark" | "light";
-  styles? : React.CSSProperties;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: 'button' | 'submit' | 'reset';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'warning'
+    | 'danger'
+    | 'lightGray'
+    | 'dark'
+    | 'light'
+    | 'blue';
+  styles?: React.CSSProperties;
   disabled?: boolean;
   children?: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({disabled = false, type = "button", onClick, variant = "primary", children, styles}) => {
-  const handleClick = () => {
-    if (onClick) {
-      onClick();
-    }
-  };
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      disabled = false,
+      type = 'button',
+      onClick,
+      variant = 'primary',
+      children,
+      styles,
+    },
+    ref,
+  ) => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (onClick) {
+        onClick(event);
+      }
+    };
 
-  return <PrimaryButton style={styles} statusColor={variant} onClick={handleClick} type={type}  disabled={disabled} >{children}</PrimaryButton>;
+    return (
+      <PrimaryButton
+        style={styles}
+        statusColor={variant}
+        onClick={handleClick}
+        type={type}
+        disabled={disabled}
+        ref={ref}
+      >
+        {children}
+      </PrimaryButton>
+    );
+  },
+);
 
-};
+Button.displayName = 'Button';
