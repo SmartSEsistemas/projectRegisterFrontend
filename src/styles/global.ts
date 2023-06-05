@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export type StatusColor =
   | 'primary'
@@ -7,8 +7,7 @@ export type StatusColor =
   | 'danger'
   | 'lightGray'
   | 'dark'
-  | 'light'
-  | 'blue';
+  | 'light';
 
 export interface StatusProps {
   statusColor:
@@ -18,8 +17,7 @@ export interface StatusProps {
     | 'danger'
     | 'lightGray'
     | 'dark'
-    | 'light'
-    | 'blue';
+    | 'light';
   gridArea?: string;
 }
 
@@ -28,6 +26,13 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    
+  }
+
+  a {
+    color: inherit;
   }
 
   body {
@@ -36,6 +41,11 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
   }
 
+`;
+
+export const MainContainer = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 export const STATUS_COLORS = {

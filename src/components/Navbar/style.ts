@@ -6,27 +6,16 @@ import * as colors from '@radix-ui/colors';
 import { Content, Item } from '@radix-ui/react-dropdown-menu';
 import Link from 'next/link';
 
-
-
-export const NavbarContainer = styled.div<{ isSidebarVisible: boolean }>`
+export const NavbarContainer = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${({ theme }) => (theme.theme === 'dark' ? theme.background : theme.background)};
+  background-color: ${({ theme }) =>
+    theme.theme === 'dark' ? theme.background : theme.background};
   padding: 10px 20px;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  ${({ isSidebarVisible }) =>
-    isSidebarVisible &&
-    `
-    padding-left: 208px;
-    transition: padding-left 0.2s ease;
-  `}
-  ${({ isSidebarVisible }) =>
-    !isSidebarVisible &&
-    `
-    transition: padding-left 0.2s ease;
-  `}
 `;
 
 export const Logo = styled.div`
@@ -49,34 +38,33 @@ export const NavItems = styled.ul`
 export const NavItem = styled.li`
   margin-left: 20px;
   background: transparent;
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
   &:hover {
     color: #5dd5c5;
   }
 `;
 
 export const MenuIcon = styled(List)`
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
   background-color: transparent;
   cursor: pointer;
-
 `;
 
 export const NotificationIcon = styled(Bell)`
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
   background-color: transparent;
   cursor: pointer;
-`
+`;
 export const SingOutIcon = styled(SignOut)`
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
   background-color: transparent;
   cursor: pointer;
-`
+`;
 export const SettingsIcon = styled(Gear)`
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
   background-color: transparent;
   cursor: pointer;
-`
+`;
 
 export const NotificationWrapper = styled.div`
   position: relative;
@@ -97,18 +85,14 @@ export const NotificationCount = styled.span<{ show: boolean }>`
   border-radius: 10px;
   min-width: 14px;
   text-align: center;
-  display: ${({ show }) => (show ? "inline" : "none")};
+  display: ${({ show }) => (show ? 'inline' : 'none')};
 `;
 
-
-
-
 export const FirstSide = styled.div`
-    display: flex;
-    align-items: center;
-    background-color: transparent;
-`
-
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+`;
 
 export const AvatarRoot = styled(Avatar.Root)`
   display: inline-flex;
@@ -145,8 +129,9 @@ export const AvatarFallback = styled(Avatar.Fallback)`
 
 export const DropdownContent = styled(Content)`
   // Estilos para o container do menu
-  background-color: ${({ theme }) => (theme.theme === 'dark' ? theme.background : theme.background)};
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+  background-color: ${({ theme }) =>
+    theme.theme === 'dark' ? theme.background : theme.background};
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 8px 0;
@@ -166,14 +151,14 @@ export const DropdownItem = styled(Item)`
   outline: none;
   &:hover {
     background-color: ${({ theme }) => theme.primary};
-    color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
+    color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
   }
 `;
 
 export const LogoutButton = styled(Link)`
-    // Estilos para o botão de logout
+  // Estilos para o botão de logout
   display: flex;
   gap: 5px;
   text-decoration: none;
-  color: ${({ theme }) => (theme.theme === 'dark' ? "#A6B0CF" : "#495057")};
-`
+  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
+`;

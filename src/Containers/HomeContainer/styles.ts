@@ -11,10 +11,9 @@ export const Alert = styled(ToastContainer)`
   }
 `;
 
-export const MainContent = styled.div<{ isSidebarVisible: boolean }>`
+export const MainContent = styled.div`
   transition: margin-left 0.5s;
-  margin-left: ${({ isSidebarVisible }) => (isSidebarVisible ? '100px' : '0')};
-  opacity: ${({ isSidebarVisible }) => (isSidebarVisible ? '0.3' : '1')};
+  width: 100%;
 `;
 
 export const DivButtons = styled.div`

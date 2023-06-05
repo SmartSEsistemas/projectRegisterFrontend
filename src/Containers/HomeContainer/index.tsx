@@ -195,7 +195,7 @@ function Home() {
         )}
       </div> */}
 
-      <MainContent isSidebarVisible={isSidebarVisible}>
+      <MainContent>
         {/* <DivButtons >
           <Button variant="primary" onClick={() => showToast("Alert Success", "success")}>
             Primary

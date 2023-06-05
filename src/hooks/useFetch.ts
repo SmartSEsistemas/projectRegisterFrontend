@@ -23,13 +23,13 @@ function useFetch<T>() {
         setLoading(true);
         response = await fetch(url, options);
         json = await response.json();
+        if (!response.ok)
+          setError({
+            Message: json.Message,
+            Status_code: json.Status_code,
+            value: true,
+          });
       } catch (error: any) {
-        setError({
-          Message: json.Message,
-          Status_code: json.Status_code,
-          value: true,
-        });
-
         json = null;
       } finally {
         setData(json);
