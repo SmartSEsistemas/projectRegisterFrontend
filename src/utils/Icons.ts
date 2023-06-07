@@ -12,5 +12,6 @@ export const ICONS = {
   UserCircle: Icon.UserCircle,
   Heart: Icon.Heart,
   Planning: Icon.Folder,
+  Filter: Icon.ListMagnifyingGlass,
   // adicione outros ícones aqui conforme necessário
 };

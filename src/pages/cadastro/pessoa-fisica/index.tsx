@@ -1,5 +1,5 @@
 import { SidebarProps } from '@/@types/sideBar/SideBar';
-import CreatePessoaFisicaContainer from '@/Containers/PessoaFisicaCadastroContainer';
+import CreatePessoaFisicaContainer from '@/Containers/Cadastro/PessoaFisicaCadastroContainer';
 import Layout from '@/components/Layout';
 import { GetServerSideProps } from 'next';
 

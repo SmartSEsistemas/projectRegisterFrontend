@@ -1,4 +1,4 @@
-import Cadastro from '@/Containers/CadastroUserContainer';
+import Cadastro from '@/Containers/Cadastro/CadastroUserContainer';
 
 const ModuloCadastroPage = () => {
   return (

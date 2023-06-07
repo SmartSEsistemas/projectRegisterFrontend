@@ -12,7 +12,7 @@ import {
   isNotFutureDate,
 } from '@/utils/VerifyInputs';
 import { z } from 'zod';
-import { Container, TitlePage } from './styles';
+import { Container, TitlePage } from '@/styles/global';
 
 export type FieldArray = Array<Field>;
 
