@@ -12,6 +12,8 @@ export interface Theme {
   light: string;
   blue: string;
   hover: string;
+  'gray-100': string;
+  textColor: string;
 }
 
 export const defaultTheme: Theme = {
@@ -27,6 +29,8 @@ export const defaultTheme: Theme = {
   light: '#ffffff',
   blue: '#457eff',
   hover: 'rgba(206, 212, 218, 0.2)',
+  'gray-100': '#e5e5e5',
+  textColor: '#495057',
 };
 
 export const alternativeTheme: Theme = {
@@ -42,4 +46,6 @@ export const alternativeTheme: Theme = {
   light: '#ffffff',
   blue: '#457eff',
   hover: 'rgba(206, 212, 218, 0.2)',
+  'gray-100': '#e5e5e5',
+  textColor: '#A6B0CF',
 };

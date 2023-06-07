@@ -80,9 +80,9 @@ export const Input = styled.input<InputProps>`
   }
 
   &:focus {
-    border-color: ${({ hasError, theme }) => (hasError ? 'red' : theme.blue)};
+    border-color: ${({ hasError, theme }) => (hasError ? 'red' : theme.primary)};
     box-shadow: 0 0 5px
-      ${({ hasError, theme }) => (hasError ? 'red' : theme.blue)};
+      ${({ hasError, theme }) => (hasError ? 'red' : theme.primary)};
     background-color: ${({ theme }) =>
       theme.theme === 'dark' ? '#2A3042' : theme.light};
   }
@@ -135,7 +135,7 @@ export const FileLabel = styled.label`
   cursor: pointer;
   border-radius: 0.25em;
   font-size: 1rem;
-  border: 1px dashed ${({ theme }) => theme.blue};
+  border: 1px dashed ${({ theme }) => theme.primary};
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) =>
@@ -149,7 +149,7 @@ export const FileLabel = styled.label`
 `;
 
 export const IconUpload = styled(UploadSimple)`
-  color: ${({ theme }) => theme.blue};
+  color: ${({ theme }) => theme.primary};
 `;
 
 export const ErrorMessage = styled.span<{ hasError?: boolean }>`
@@ -172,7 +172,7 @@ export const CartegoryName = styled.h2<{
 }>`
   font-size: 24px;
   font-weight: bold;
-  color: ${({ theme }) => theme.blue};
+  color: ${({ theme }) => theme.primary};
   border-top: ${({ layout, theme, index }) =>
     layout === 'grid' && index != undefined && index > 0
       ? `1px solid ${theme.borderColor}`

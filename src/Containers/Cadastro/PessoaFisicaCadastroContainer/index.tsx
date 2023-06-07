@@ -80,7 +80,7 @@ const CreatePessoaFisicaContainer = () => {
           name: 'cpf',
           label: 'CPF',
           type: 'text',
-          placeholder: 'Digite seu CPF',
+          placeholder: 'Ex: 000.000.000-00',
           required: true,
           formatter: formatCPF,
         },
@@ -88,29 +88,30 @@ const CreatePessoaFisicaContainer = () => {
           name: 'nome',
           label: 'Nome Completo',
           type: 'text',
-          placeholder: 'Digite seu nome',
+          placeholder: 'Ex: João da Silva',
           required: true,
         },
         {
           name: 'data_nascimento',
           label: 'Data de Nascimento',
           type: 'date',
+          placeholder: 'Ex: dd/mm/aaaa',
           required: true,
         },
         {
           name: 'rg',
           label: 'RG',
           type: 'text',
-          placeholder: 'Digite seu RG',
+          placeholder: 'Ex: 00.000.00',
           required: true,
           formatter: formatRG,
         },
-
+  
         {
           name: 'uf_rg',
           label: 'UF RG',
           type: 'select',
-          placeholder: 'Ex: Acre',
+          placeholder: 'Ex: São Paulo',
           options: [
             { label: 'Acre', value: 'AC' },
             { label: 'Alagoas', value: 'AL' },
@@ -142,32 +143,33 @@ const CreatePessoaFisicaContainer = () => {
           ],
           required: true,
         },
-
+  
         {
           name: 'orgao_emissor',
           label: 'Órgão Emissor',
           type: 'text',
-          placeholder: 'Digite o órgão emissor do RG',
+          placeholder: 'Ex: SSP',
           required: true,
         },
         {
           name: 'data_emissao_rg',
           label: 'Data de Emissão do RG',
           type: 'date',
+          placeholder: 'Ex: dd/mm/aaaa',
           required: true,
         },
         {
           name: 'nacionalidade',
           label: 'Nacionalidade',
           type: 'text',
-          placeholder: 'Digite sua nacionalidade',
+          placeholder: 'Ex: Brasileira',
           required: true,
         },
         {
           name: 'cnh',
           label: 'CNH',
           type: 'text',
-          placeholder: 'Digite sua CNH',
+          placeholder: 'Ex: 000 000 000 00',
           required: false,
           formatter: formatCNH,
         },
@@ -180,7 +182,7 @@ const CreatePessoaFisicaContainer = () => {
           name: 'cep_endereco',
           label: 'CEP do Endereço',
           type: 'text',
-          placeholder: 'Digite o CEP do endereço',
+          placeholder: 'Ex: 00000-000',
           required: true,
           formatter: formatCEP,
         },
@@ -188,42 +190,42 @@ const CreatePessoaFisicaContainer = () => {
           name: 'rua',
           label: 'Rua',
           type: 'text',
-          placeholder: 'Digite o nome da rua',
+          placeholder: 'Ex: Rua das Flores',
           required: true,
         },
         {
           name: 'numero',
           label: 'Número',
           type: 'text',
-          placeholder: 'Digite o número',
+          placeholder: 'Ex: 123',
           required: true,
         },
         {
           name: 'complemento',
           label: 'Complemento',
           type: 'text',
-          placeholder: 'Digite o complemento',
+          placeholder: 'Ex: Apartamento 45',
           required: false,
         },
         {
           name: 'bairro',
           label: 'Bairro',
           type: 'text',
-          placeholder: 'Digite o bairro',
+          placeholder: 'Ex: Centro',
           required: true,
         },
         {
           name: 'cidade',
           label: 'Cidade',
           type: 'text',
-          placeholder: 'Digite a cidade',
+          placeholder: 'Ex: São Paulo',
           required: true,
         },
         {
           name: 'estado',
           label: 'Estado',
           type: 'text',
-          placeholder: 'Digite o estado',
+          placeholder: 'Ex: São Paulo',
           required: true,
         },
       ],
@@ -235,7 +237,7 @@ const CreatePessoaFisicaContainer = () => {
           name: 'telefone',
           label: 'Telefone',
           type: 'text',
-          placeholder: 'Digite seu telefone',
+          placeholder: 'Ex: (00) 00000-0000',
           required: true,
           formatter: formatCellPhone,
         },
@@ -243,24 +245,27 @@ const CreatePessoaFisicaContainer = () => {
           name: 'email',
           label: 'Email',
           type: 'email',
-          placeholder: 'Digite seu email',
+          placeholder: 'Ex: email@exemplo.com',
           required: true,
         },
         {
           name: 'data_cadastro',
           label: 'Data de Cadastro',
           type: 'date',
+          placeholder: 'Ex: dd/mm/aaaa',
           required: true,
         },
         {
           name: 'foto',
           label: 'Foto',
           type: 'file',
+          placeholder: 'Ex: Selecione um arquivo',
           required: false,
         },
       ],
     },
   ];
+  
 
   return (
     <>
@@ -270,7 +275,7 @@ const CreatePessoaFisicaContainer = () => {
           categories={fieldsWithCartegory}
           // fields={fields}
           onSubmit={handleSubmit}
-          buttonVariant="blue"
+          buttonVariant="primary"
           validationSchema={validationSchema}
           layout="grid"
           gridColumns={{

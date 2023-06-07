@@ -88,8 +88,6 @@ const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
     resolver: zodResolver(validationSchema),
   });
 
-  console.log(open);
-
   const fetchAddress = async (cep: any) => {
     const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
     if (!response.ok) throw new Error('CEP não encontrado');
@@ -183,8 +181,8 @@ const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
                 control: (provided, state) => ({
                   ...provided,
                   height: '48px',
-                  borderColor: state.isFocused ? theme.blue : theme.borderColor,
-                  boxShadow: state.isFocused ? `0 0 5px ${theme.blue}` : 'none',
+                  borderColor: state.isFocused ? theme.primary : theme.borderColor,
+                  boxShadow: state.isFocused ? `0 0 5px ${theme.primary}` : 'none',
                   '&:hover': { borderColor: 'none' },
                   backgroundColor: state.isFocused
                     ? theme.theme === 'dark'
@@ -217,7 +215,7 @@ const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
                 }),
                 placeholder: (provided, state) => ({
                   ...provided,
-                  color: theme.theme === 'dark' ? '#A6B0CF' : '#495057',
+                  color: theme.textColor,
                   opacity: 0.5,
                   fontWeight: 400,
                 }),
@@ -274,14 +272,14 @@ const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
           : fields && renderFields(fields)}
         <ButtonContainer layout={layout}>
           <Button
-            variant={buttonVariant}
+            variant="gray-100"
             type="button"
             onClick={() => setOpen(true)}
           >
             Voltar
           </Button>
           <Button variant={buttonVariant} type="submit" disabled={!isValid}>
-            Enviar
+            Salvar
           </Button>
         </ButtonContainer>
       </Form>

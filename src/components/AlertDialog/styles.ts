@@ -44,7 +44,7 @@ export const AlertDialogContent = styled(AlertDialog.Content)`
   max-width: 500px;
   max-height: 85vh;
   padding: 25px;
-  gap: 1.5rem;
+  gap: 2rem;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
 
   &:focus {
@@ -54,15 +54,14 @@ export const AlertDialogContent = styled(AlertDialog.Content)`
 
 export const AlertDialogTitle = styled(AlertDialog.Title)`
   margin: 0;
-  color: ${({ theme }) => theme.blue};
+  color: ${({ theme }) => theme.secondary};
   font-size: 1.5rem;
   text-align: center;
   font-weight: 500;
 `;
 
 export const AlertDialogDescription = styled(AlertDialog.Description)`
-  margin-bottom: 20px;
-  color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : '#495057')};
+  color: ${({ theme }) => theme.textColor};
   text-align: center;
   font-size: 1rem;
   line-height: 1.5;
