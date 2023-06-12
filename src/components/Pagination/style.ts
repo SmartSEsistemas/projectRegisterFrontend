@@ -5,10 +5,13 @@ export const PaginationContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 10px;
+
+  color: ${({ theme }) => (theme.theme === 'dark' ? theme.light : theme.dark)};
 `;
 
 export const PaginationButton = styled.button`
-  background-color: ${({ disabled }) => (disabled ? '#ccc' : '#00c489')};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.borderColor : theme.primary};
   border: none;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   display: flex;
@@ -18,10 +21,12 @@ export const PaginationButton = styled.button`
   margin: 0 5px;
   font-size: 18px;
   color: #fff;
+  border-radius: 3px;
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${({ disabled }) => (disabled ? '#ccc' : '#00a97f')};
+    background-color: ${({ theme, disabled }) =>
+      disabled ? theme.borderColor : theme.primary};
   }
 `;
 export const PaginationInfo = styled.div`

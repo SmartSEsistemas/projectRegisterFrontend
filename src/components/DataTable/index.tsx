@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
-  AiOutlineSortAscending,
-  AiOutlineSortDescending,
+  AiOutlineArrowUp,
+  AiOutlineArrowDown,
   AiOutlineDelete,
   AiOutlineEdit,
   AiOutlineEye,
@@ -21,6 +21,9 @@ import {
   TableHeaderActions,
   TableBodyActions,
   TableRowHeader,
+  WrapperInput,
+  HeaderTableComponent,
+  ClearFilter,
 } from './style';
 import Pagination from '../Pagination';
 import { Button } from '../Buttons/Button';
@@ -30,43 +33,61 @@ import Link from 'next/link';
 
 interface DataTable {
   data: any[];
-  columns: string[];
+  columns: { name: string; width: string }[];
 }
 
 const DataTable = ({ data, columns }: DataTable) => {
-  const [isOpenFilter, setIsOpenFilter] = useState(true);
   const [filteredData, setFilteredData] = useState(data);
   const [sortColumn, setSortColumn] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
-  const [heightTable, setHeightTable] = useState(0);
-
-  useMemo(() => {
-    setHeightTable(5 * 55);
-  }, []);
-
+  const [filterActive, setFilterActive] = useState(false);
+  const inputs = useRef<any>(null);
   // Filtro de dados
   const handleFilterChange = (
     column: string,
     value: React.ChangeEvent<HTMLInputElement>,
   ) => {
+    setFilterActive(true);
     const valueString = value.currentTarget.value as string;
     const filterData = data.filter((item) =>
-      item[column].toString().toLowerCase().includes(valueString.toLowerCase()),
+      column
+        ? item[column]
+            ?.toString()
+            .toLowerCase()
+            .includes(valueString.toLowerCase())
+        : false,
     );
+
     setFilteredData(filterData);
     setCurrentPage(1);
   };
 
   // Ordenação de colunas
   const handleSort = (column: string) => {
-    if (column === sortColumn) {
+    setFilterActive(true);
+    if (column === sortColumn)
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-    } else {
+    else {
       setSortColumn(column);
       setSortDirection('asc');
     }
+  };
+
+  const handleClearFilters = () => {
+    if (!filterActive) return;
+    setSortColumn('');
+    setSortDirection('desc');
+    setFilterActive(false);
+    setFilteredData(data);
+
+    const listInput = inputs.current?.querySelectorAll(
+      'input',
+    ) as HTMLInputElement[];
+    listInput.forEach((input) => {
+      input.value = '';
+    });
   };
 
   // Paginação
@@ -75,26 +96,23 @@ const DataTable = ({ data, columns }: DataTable) => {
   };
 
   // Atualiza os dados filtrados quando o filtro ou a ordenação mudam
-  // useEffect(() => {
-  //   const sortedData = [...filteredData];
+  useEffect(() => {
+    const sortedData = [...data];
 
-  //   if (sortColumn !== '') {
-  //     sortedData.sort((a, b) => {
-  //       const valA = a[sortColumn];
-  //       const valB = b[sortColumn];
+    if (sortColumn !== '') {
+      sortedData.sort((a, b) => {
+        const valA = a[sortColumn];
+        const valB = b[sortColumn];
 
-  //       if (valA < valB) {
-  //         return sortDirection === 'asc' ? -1 : 1;
-  //       }
-  //       if (valA > valB) {
-  //         return sortDirection === 'asc' ? 1 : -1;
-  //       }
-  //       return 0;
-  //     });
-  //   }
+        if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
+        if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
 
-  //   setFilteredData(sortedData);
-  // }, [filteredData, sortColumn, sortDirection]);
+        return 0;
+      });
+    }
+
+    setFilteredData(sortedData);
+  }, [data, sortColumn, sortDirection]);
 
   // Calcula o índice inicial e final dos itens exibidos na página atual
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -123,102 +141,109 @@ const DataTable = ({ data, columns }: DataTable) => {
   const handleItemsPerPage = (value: number) => {
     setItemsPerPage(value);
     setCurrentPage(1);
-    // const length = currentItems.length;
-    // console.log(length);
-
-    // switch (length) {
-    //   case 5:
-    //     setHeightTable(41 * length);
-    //     break;
-    //   case 10:
-    //     setHeightTable(42 * length);
-    //     break;
-    //   case 20:
-    //     setHeightTable(41 * length);
-    //     break;
-    //   case 50:
-    //     setHeightTable(40 * length);
-    //     break;
-    //   default:
-    //     setHeightTable(225);
-    //     break;
-    // }
   };
 
   return (
     <ContainerInner>
-      <ItemsPerPageContainer>
-        <ItemsPerPageText>Itens por pagina:</ItemsPerPageText>
-        <select
-          value={itemsPerPage}
-          onChange={(e) => handleItemsPerPage(Number(e.target.value))}
-        >
-          <option value={5}>5</option>
-          <option value={10}>10</option>
-          <option value={20}>20</option>
-          <option value={50}>50</option>
-        </select>
-      </ItemsPerPageContainer>
-      <TableContainer height={`${100 + heightTable}px`}>
+      <HeaderTableComponent>
+        <ItemsPerPageContainer>
+          <ItemsPerPageText>Itens por pagina:</ItemsPerPageText>
+          <select
+            value={itemsPerPage}
+            onChange={(e) => handleItemsPerPage(Number(e.target.value))}
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+          </select>
+        </ItemsPerPageContainer>
+        <Button>
+          <span>+</span> Cadastrar
+        </Button>
+      </HeaderTableComponent>
+      <TableContainer numberItems={currentItems.length}>
         <Table>
           <thead>
             <TableRowHeader>
               {columns.map((column) => (
-                <TableHeader key={column}>
+                <TableHeader
+                  width={column.width}
+                  active={sortColumn === column.name && sortDirection === 'asc'}
+                  key={column.name}
+                >
                   <button
                     type="button"
-                    onClick={() => handleSort(column)}
+                    onClick={() => handleSort(column.name)}
                     aria-label={`Sort by ${column}`}
                   >
-                    <span>{column}</span>
-                    {sortColumn === column && sortDirection === 'asc' ? (
-                      <AiOutlineSortAscending />
+                    {column.name}
+                    {sortColumn === column.name && sortDirection === 'asc' ? (
+                      <AiOutlineArrowUp />
                     ) : (
-                      <AiOutlineSortDescending />
+                      <AiOutlineArrowDown />
                     )}
                   </button>
                 </TableHeader>
               ))}
               <TableHeaderActions>
-                <p>Actions</p>
+                <p>Ações</p>
               </TableHeaderActions>
             </TableRowHeader>
-            <TableRowHeader>
+            <TableRowHeader ref={inputs}>
               {columns.map((column) => (
-                <TableHeader key={column}>
-                  <FilterInput
-                    type="text"
-                    placeholder="Search"
-                    onChange={(e) => handleFilterChange(column, e)}
-                  />
+                <TableHeader
+                  width={column.width}
+                  active={sortColumn === column.name}
+                  key={column.name}
+                >
+                  <WrapperInput>
+                    <FilterInput
+                      type="text"
+                      placeholder={'Buscar'}
+                      onChange={(e) => handleFilterChange(column.name, e)}
+                    />
+                  </WrapperInput>
                 </TableHeader>
               ))}
-              <TableHeaderActions></TableHeaderActions>
+              <TableHeaderActions>
+                <ClearFilter active={filterActive}>
+                  <Button onClick={handleClearFilters} type="button">
+                    Limpar filtros
+                  </Button>
+                </ClearFilter>
+              </TableHeaderActions>
             </TableRowHeader>
           </thead>
 
           <tbody>
-            {currentItems.map((item, i) => (
-              <TableRow key={item.id + i}>
-                {columns.map((column, j) => (
-                  <TableCell key={column + j}>{item[column]}</TableCell>
-                ))}
+            {currentItems ? (
+              currentItems.map((item, i) => (
+                <TableRow key={i}>
+                  {columns.map((column, j) => (
+                    <TableCell key={column.name + j}>
+                      {item[column.name]}
+                    </TableCell>
+                  ))}
 
-                <TableBodyActions>
-                  <ActionIconsWrapper>
-                    <ActionButton onClick={() => handleView(item)}>
-                      <AiOutlineEye />
-                    </ActionButton>
-                    <ActionButton onClick={() => handleEdit(item)}>
-                      <AiOutlineEdit />
-                    </ActionButton>
-                    <ActionButton onClick={() => handleDelete(item)}>
-                      <AiOutlineDelete />
-                    </ActionButton>
-                  </ActionIconsWrapper>
-                </TableBodyActions>
-              </TableRow>
-            ))}
+                  <TableBodyActions>
+                    <ActionIconsWrapper>
+                      <ActionButton onClick={() => handleView(item)}>
+                        <AiOutlineEye />
+                      </ActionButton>
+                      <ActionButton onClick={() => handleEdit(item)}>
+                        <AiOutlineEdit />
+                      </ActionButton>
+                      <ActionButton onClick={() => handleDelete(item)}>
+                        <AiOutlineDelete />
+                      </ActionButton>
+                    </ActionIconsWrapper>
+                  </TableBodyActions>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow></TableRow>
+            )}
           </tbody>
         </Table>
       </TableContainer>
@@ -233,7 +258,7 @@ const DataTable = ({ data, columns }: DataTable) => {
 
 DataTable.propTypes = {
   data: PropTypes.instanceOf(Object).isRequired,
-  columns: PropTypes.arrayOf(PropTypes.string).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default DataTable;
