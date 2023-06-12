@@ -107,7 +107,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ data }) => {
                 <SubModule>
                   {modulo.submodulos.map(({ link, name }, index) => (
                     <li key={name + index}>
-                      <Link href={`${link}`}>{name}</Link>
+                      <Link href={link}>{name}</Link>
                     </li>
                   ))}
                 </SubModule>

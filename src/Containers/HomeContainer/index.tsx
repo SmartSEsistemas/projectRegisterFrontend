@@ -142,7 +142,7 @@ function Home() {
     {
       nomeModulo: 'Cadastro',
       icone: 'UserCircle',
-      router: '/cadastro',
+      router: '/modulo-cadastro',
     },
   ];
 

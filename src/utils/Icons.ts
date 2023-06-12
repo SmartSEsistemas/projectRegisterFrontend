@@ -13,5 +13,6 @@ export const ICONS = {
   Heart: Icon.Heart,
   Planning: Icon.Folder,
   Filter: Icon.ListMagnifyingGlass,
+
   // adicione outros ícones aqui conforme necessário
 };

@@ -27,9 +27,9 @@ import {
 } from './style';
 import Pagination from '../Pagination';
 import { Button } from '../Buttons/Button';
-import { ICONS } from '@/utils/Icons';
 import { ContainerInner } from '@/styles/global';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface DataTable {
   data: any[];
@@ -37,6 +37,9 @@ interface DataTable {
 }
 
 const DataTable = ({ data, columns }: DataTable) => {
+  const router = useRouter();
+  const currentRoute = router.asPath;
+
   const [filteredData, setFilteredData] = useState(data);
   const [sortColumn, setSortColumn] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
@@ -158,9 +161,11 @@ const DataTable = ({ data, columns }: DataTable) => {
             <option value={50}>50</option>
           </select>
         </ItemsPerPageContainer>
-        <Button>
-          <span>+</span> Cadastrar
-        </Button>
+        <Link href={`${currentRoute}/cadastro`}>
+          <Button>
+            <span>+</span> Cadastrar
+          </Button>
+        </Link>
       </HeaderTableComponent>
       <TableContainer numberItems={currentItems.length}>
         <Table>

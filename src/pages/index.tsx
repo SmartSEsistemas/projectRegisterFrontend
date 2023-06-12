@@ -2,9 +2,6 @@
 import { GetServerSideProps } from 'next';
 import HomeContainer from '@/Containers/HomeContainer';
 import Layout from '@/components/Layout';
-import { SidebarProps } from '@/@types/sideBar/SideBar';
-
-// Conteúdo da sua antiga página home
 
 const HomePage = () => {
   return (
