@@ -43,6 +43,9 @@ import { GET_TOKEN } from '@/api/login/login';
 import { UserLogin } from '@/@types/login/UserLogin';
 import { setLocalStorage } from '@/utils/localStorage';
 import { useRouter } from 'next/router';
+import { useToast } from '@/hooks/useToast';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export interface FieldArray extends Array<Field> {}
 interface Field {
@@ -72,7 +75,7 @@ const validationSchema = z.object({
 
 const Login = () => {
   const { theme } = useContext(ThemeContext);
-
+  const { showToast } = useToast();
   const [isClient, setIsClient] = useState(false);
 
   const { error, data, loading, request } = useFetch<{ token: string }>();
@@ -138,7 +141,7 @@ const Login = () => {
     if (response && response.ok) {
       router.push('/');
       setLocalStorage('token', json.token);
-    }
+    } else showToast(error.Message, 'error');
   };
 
   const fields: FieldArray = [
@@ -191,8 +194,10 @@ const Login = () => {
     },
   ];
 
+  if (err.error) showToast(err.message, 'error');
   return (
     <Container>
+      <ToastContainer />
       <FormContainer>
         <FormContainerWidth>
           <Form onSubmit={handleSubmit(handleSubmitData)} theme={theme}>

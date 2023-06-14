@@ -33,7 +33,7 @@ import { useRouter } from 'next/router';
 
 interface DataTable {
   data: any[];
-  columns: { name: string; width: string }[];
+  columns: { name: string; realName: string; width: string }[];
 }
 
 const DataTable = ({ data, columns }: DataTable) => {
@@ -46,23 +46,35 @@ const DataTable = ({ data, columns }: DataTable) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [filterActive, setFilterActive] = useState(false);
-  const inputs = useRef<any>(null);
+  const wrapperInputs = useRef<any>(null);
   // Filtro de dados
   const handleFilterChange = (
     column: string,
     value: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setFilterActive(true);
-    const valueString = value.currentTarget.value as string;
-    const filterData = data.filter((item) =>
-      column
-        ? item[column]
-            ?.toString()
-            .toLowerCase()
-            .includes(valueString.toLowerCase())
-        : false,
-    );
+    const listFilter = wrapperInputs.current?.querySelectorAll(
+      'input',
+    ) as HTMLInputElement[];
 
+    let listValue: { value: string; position: number }[] = [];
+    listFilter.forEach(({ value }, index) => {
+      if (value) listValue.push({ value, position: index });
+    });
+
+    const keysObjectData = Object.keys(data[0]);
+    const filterData: any[] = [];
+    data.forEach((item) => {
+      const isValid = listValue.every(({ value, position }) =>
+        item[keysObjectData[position]]
+          .toString()
+          .toLowerCase()
+          .includes(value.toLocaleLowerCase()),
+      );
+
+      if (isValid) filterData.push(item);
+    });
+
+    setFilterActive(true);
     setFilteredData(filterData);
     setCurrentPage(1);
   };
@@ -85,7 +97,7 @@ const DataTable = ({ data, columns }: DataTable) => {
     setFilterActive(false);
     setFilteredData(data);
 
-    const listInput = inputs.current?.querySelectorAll(
+    const listInput = wrapperInputs.current?.querySelectorAll(
       'input',
     ) as HTMLInputElement[];
     listInput.forEach((input) => {
@@ -171,19 +183,19 @@ const DataTable = ({ data, columns }: DataTable) => {
         <Table>
           <thead>
             <TableRowHeader>
-              {columns.map((column) => (
+              {columns.map(({ width, name, realName }) => (
                 <TableHeader
-                  width={column.width}
-                  active={sortColumn === column.name && sortDirection === 'asc'}
-                  key={column.name}
+                  width={width}
+                  active={sortColumn === realName && sortDirection === 'asc'}
+                  key={name}
                 >
                   <button
                     type="button"
-                    onClick={() => handleSort(column.name)}
-                    aria-label={`Sort by ${column}`}
+                    onClick={() => handleSort(realName)}
+                    aria-label={`Sort by ${name}`}
                   >
-                    {column.name}
-                    {sortColumn === column.name && sortDirection === 'asc' ? (
+                    {name}
+                    {sortColumn === realName && sortDirection === 'asc' ? (
                       <AiOutlineArrowUp />
                     ) : (
                       <AiOutlineArrowDown />
@@ -195,18 +207,18 @@ const DataTable = ({ data, columns }: DataTable) => {
                 <p>Ações</p>
               </TableHeaderActions>
             </TableRowHeader>
-            <TableRowHeader ref={inputs}>
-              {columns.map((column) => (
+            <TableRowHeader ref={wrapperInputs}>
+              {columns.map(({ width, name, realName }) => (
                 <TableHeader
-                  width={column.width}
-                  active={sortColumn === column.name}
-                  key={column.name}
+                  width={width}
+                  active={sortColumn === name}
+                  key={name}
                 >
                   <WrapperInput>
                     <FilterInput
                       type="text"
                       placeholder={'Buscar'}
-                      onChange={(e) => handleFilterChange(column.name, e)}
+                      onChange={(e) => handleFilterChange(name, e)}
                     />
                   </WrapperInput>
                 </TableHeader>
@@ -225,10 +237,8 @@ const DataTable = ({ data, columns }: DataTable) => {
             {currentItems ? (
               currentItems.map((item, i) => (
                 <TableRow key={i}>
-                  {columns.map((column, j) => (
-                    <TableCell key={column.name + j}>
-                      {item[column.name]}
-                    </TableCell>
+                  {columns.map(({ realName }, j) => (
+                    <TableCell key={realName + j}>{item[realName]}</TableCell>
                   ))}
 
                   <TableBodyActions>

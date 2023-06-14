@@ -181,8 +181,12 @@ const FormularioGenerio: React.FC<FormularioGenerioProps> = ({
                 control: (provided, state) => ({
                   ...provided,
                   height: '48px',
-                  borderColor: state.isFocused ? theme.primary : theme.borderColor,
-                  boxShadow: state.isFocused ? `0 0 5px ${theme.primary}` : 'none',
+                  borderColor: state.isFocused
+                    ? theme.primary
+                    : theme.borderColor,
+                  boxShadow: state.isFocused
+                    ? `0 0 5px ${theme.primary}`
+                    : 'none',
                   '&:hover': { borderColor: 'none' },
                   backgroundColor: state.isFocused
                     ? theme.theme === 'dark'

@@ -224,11 +224,11 @@ const ListNaturalPerson = () => {
   ];
 
   const columns = [
-    { name: 'id', width: '10%' },
-    { name: 'name', width: '25%' },
-    { name: 'age', width: '10%' },
-    { name: 'email', width: '25%' },
-    { name: 'cpf', width: '20%' },
+    { name: 'id', realName: 'id', width: '10%' },
+    { name: 'Nome', realName: 'name', width: '25%' },
+    { name: 'Idade', realName: 'age', width: '10%' },
+    { name: 'E-mail', realName: 'email', width: '25%' },
+    { name: 'cpf', realName: 'cpf', width: '20%' },
   ];
 
   return (

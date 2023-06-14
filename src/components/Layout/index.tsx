@@ -4,6 +4,8 @@ import { Sidebar } from '../Sidebar/SiderBar';
 import Navbar from '../Navbar/Navbar';
 import { SidebarProps } from '@/@types/sideBar/SideBar';
 import { MainContainer, MainContent } from '@/styles/global';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface LayoutProps {
   children: ReactNode;
@@ -15,6 +17,7 @@ const Layout: React.FC<LayoutProps> = ({ children, dataSideBar }) => {
     <div>
       <div>
         <MainContainer>
+          <ToastContainer />
           {dataSideBar && <Sidebar data={dataSideBar.data} />}
           <MainContent>
             <Navbar />

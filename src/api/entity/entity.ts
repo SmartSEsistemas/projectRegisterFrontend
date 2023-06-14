@@ -1,5 +1,3 @@
-import { EntitYNames } from '@/@types/entity/Entity';
-
 const API_URL = process.env.APP_API_URL || 'http://localhost:3333';
 
 const POST = {

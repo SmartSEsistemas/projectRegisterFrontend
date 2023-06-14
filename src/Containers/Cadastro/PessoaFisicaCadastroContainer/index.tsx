@@ -13,20 +13,24 @@ import {
 } from '@/utils/VerifyInputs';
 import { z } from 'zod';
 import { Container, TitlePage } from '@/styles/global';
+import { useMemo, useState } from 'react';
+import { GET_UFS } from '@/api/uf/login';
+import { getLocalStorage } from '@/utils/localStorage';
+import { IUf } from '@/@types/uf/IUf';
 
 export type FieldArray = Array<Field>;
 
 const validationSchema = z.object({
-  nome: z.string().min(3, 'Nome deve ter no mínimo 3 caracteres'),
-  rg: z
+  name: z.string().min(3, 'Nome deve ter no mínimo 3 caracteres'),
+  nb_rg: z
     .string()
     .min(9, 'RG deve ter no mínimo 9 caracteres')
     .refine((value) => value !== undefined && formatRG(value) === value, {
       message: 'RG inválido',
     }),
-  orgao_emissor: z.string(),
-  uf_rg: z.string(),
-  data_emissao_rg: z
+  organ_emission_rg: z.string(),
+  register_uf_id: z.string(),
+  date_emission_rg: z
     .string()
     .refine((value) => value !== undefined && isNotFutureDate(value), {
       message: 'Data de emissão do RG inválida',
@@ -43,31 +47,44 @@ const validationSchema = z.object({
   cpf: z.string().refine(isCPForCNPJ, {
     message: 'CPF ou CNPJ inválido',
   }),
-  data_nascimento: z.string().refine((value) => isAtLeastTenYearsAgo(value), {
+  date_birth: z.string().refine((value) => isAtLeastTenYearsAgo(value), {
     message: 'Data de nascimento inválida',
   }),
-  nacionalidade: z.string(),
-  cep_endereco: z
+  nationality: z.string(),
+  address_cep: z
     .string()
     .min(8, 'CEP deve ter no mínimo 8 caracteres')
     .refine((value) => formatCEP(value) === value, { message: 'CEP inválido' }),
-  rua: z.string(),
-  numero: z.string(),
-  complemento: z.string().optional(),
-  bairro: z.string(),
-  cidade: z.string(),
-  estado: z.string(),
-  telefone: z.string().refine((value) => formatCellPhone(value) === value, {
+  address_street: z.string(),
+  address_nb: z.string(),
+  address_district: z.string(),
+  address_complement: z.string().optional(),
+  register_county_id: z.string(),
+  state_uf_id: z.string(),
+  email: z.string().email('Email inválido'),
+  phone: z.string().refine((value) => formatCellPhone(value) === value, {
     message: 'Telefone inválido',
   }),
-  email: z.string().email('Email inválido'),
-  foto: z.unknown().optional(), // Tipo depende de como você está lidando com o upload de arquivos
-  data_cadastro: z.string().refine((value) => isNotFutureDate(value), {
+  register_date: z.string().refine((value) => isNotFutureDate(value), {
     message: 'Data de cadastro inválida',
   }),
+  photo: z.unknown().optional(), // Tipo depende de como você está lidando com o upload de arquivos
 });
 
 const CreatePessoaFisicaContainer = () => {
+  const [ufs, setUfs] = useState<IUf[]>([]);
+
+  useMemo(async () => {
+    try {
+      const token = getLocalStorage('token');
+      if (!token) return;
+      const { options, url } = GET_UFS(token, 'db1');
+      const response = await fetch(url, options);
+      const json: IUf[] = await response.json();
+      setUfs(json);
+    } catch (error) {}
+  }, []);
+
   const handleSubmit = (data: Record<string, unknown>) => {
     console.log(data);
   };
@@ -85,81 +102,56 @@ const CreatePessoaFisicaContainer = () => {
           formatter: formatCPF,
         },
         {
-          name: 'nome',
+          name: 'name',
           label: 'Nome Completo',
           type: 'text',
           placeholder: 'Ex: João da Silva',
           required: true,
         },
         {
-          name: 'data_nascimento',
+          name: 'date_birth',
           label: 'Data de Nascimento',
           type: 'date',
           placeholder: 'Ex: dd/mm/aaaa',
           required: true,
         },
         {
-          name: 'rg',
+          name: 'nb_rg',
           label: 'RG',
           type: 'text',
           placeholder: 'Ex: 00.000.00',
           required: true,
           formatter: formatRG,
         },
-  
+
         {
-          name: 'uf_rg',
+          name: 'register_uf_id',
           label: 'UF RG',
           type: 'select',
           placeholder: 'Ex: São Paulo',
-          options: [
-            { label: 'Acre', value: 'AC' },
-            { label: 'Alagoas', value: 'AL' },
-            { label: 'Amapá', value: 'AP' },
-            { label: 'Amazonas', value: 'AM' },
-            { label: 'Bahia', value: 'BA' },
-            { label: 'Ceará', value: 'CE' },
-            { label: 'Distrito Federal', value: 'DF' },
-            { label: 'Espírito Santo', value: 'ES' },
-            { label: 'Goiás', value: 'GO' },
-            { label: 'Maranhão', value: 'MA' },
-            { label: 'Mato Grosso', value: 'MT' },
-            { label: 'Mato Grosso do Sul', value: 'MS' },
-            { label: 'Minas Gerais', value: 'MG' },
-            { label: 'Pará', value: 'PA' },
-            { label: 'Paraíba', value: 'PB' },
-            { label: 'Paraná', value: 'PR' },
-            { label: 'Pernambuco', value: 'PE' },
-            { label: 'Piauí', value: 'PI' },
-            { label: 'Rio de Janeiro', value: 'RJ' },
-            { label: 'Rio Grande do Norte', value: 'RN' },
-            { label: 'Rio Grande do Sul', value: 'RS' },
-            { label: 'Rondônia', value: 'RO' },
-            { label: 'Roraima', value: 'RR' },
-            { label: 'Santa Catarina', value: 'SC' },
-            { label: 'São Paulo', value: 'SP' },
-            { label: 'Sergipe', value: 'SE' },
-            { label: 'Tocantins', value: 'TO' },
-          ],
+          options: ufs.map((uf) => ({
+            label: uf.description,
+            value: String(uf.id),
+          })),
           required: true,
         },
-  
+
         {
-          name: 'orgao_emissor',
+          name: 'organ_emission_rg',
           label: 'Órgão Emissor',
           type: 'text',
           placeholder: 'Ex: SSP',
           required: true,
         },
         {
-          name: 'data_emissao_rg',
+          name: 'date_emission_rg',
           label: 'Data de Emissão do RG',
           type: 'date',
           placeholder: 'Ex: dd/mm/aaaa',
           required: true,
         },
         {
-          name: 'nacionalidade',
+          name: 'nationality',
           label: 'Nacionalidade',
           type: 'text',
           placeholder: 'Ex: Brasileira',
@@ -179,7 +171,7 @@ const CreatePessoaFisicaContainer = () => {
       categoryName: 'Endereço',
       fields: [
         {
-          name: 'cep_endereco',
+          name: 'address_cep',
           label: 'CEP do Endereço',
           type: 'text',
           placeholder: 'Ex: 00000-000',
@@ -187,42 +179,42 @@ const CreatePessoaFisicaContainer = () => {
           formatter: formatCEP,
         },
         {
-          name: 'rua',
+          name: 'address_street',
           label: 'Rua',
           type: 'text',
           placeholder: 'Ex: Rua das Flores',
           required: true,
         },
         {
-          name: 'numero',
+          name: 'address_nb',
           label: 'Número',
           type: 'text',
           placeholder: 'Ex: 123',
           required: true,
         },
         {
-          name: 'complemento',
+          name: 'address_complement',
           label: 'Complemento',
           type: 'text',
           placeholder: 'Ex: Apartamento 45',
           required: false,
         },
         {
-          name: 'bairro',
+          name: 'address_district',
           label: 'Bairro',
           type: 'text',
           placeholder: 'Ex: Centro',
           required: true,
         },
         {
-          name: 'cidade',
+          name: 'register_county_id',
           label: 'Cidade',
           type: 'text',
           placeholder: 'Ex: São Paulo',
           required: true,
         },
         {
-          name: 'estado',
+          name: 'state_uf_id',
           label: 'Estado',
           type: 'text',
           placeholder: 'Ex: São Paulo',
@@ -234,7 +226,7 @@ const CreatePessoaFisicaContainer = () => {
       categoryName: 'Contato',
       fields: [
         {
-          name: 'telefone',
+          name: 'phone',
           label: 'Telefone',
           type: 'text',
           placeholder: 'Ex: (00) 00000-0000',
@@ -249,14 +241,14 @@ const CreatePessoaFisicaContainer = () => {
           required: true,
         },
         {
-          name: 'data_cadastro',
+          name: 'register_date',
           label: 'Data de Cadastro',
           type: 'date',
           placeholder: 'Ex: dd/mm/aaaa',
           required: true,
         },
         {
-          name: 'foto',
+          name: 'photo',
           label: 'Foto',
           type: 'file',
           placeholder: 'Ex: Selecione um arquivo',
@@ -265,7 +257,6 @@ const CreatePessoaFisicaContainer = () => {
       ],
     },
   ];
-  
 
   return (
     <>
@@ -280,25 +271,25 @@ const CreatePessoaFisicaContainer = () => {
           layout="grid"
           gridColumns={{
             cpf: 2,
-            nome: 8,
-            data_nascimento: 2,
-            rg: 3,
-            uf_rg: 3,
-            orgao_emissor: 3,
-            data_emissao_rg: 3,
+            name: 8,
+            date_birth: 2,
+            nb_rg: 3,
+            register_uf_id: 3,
+            organ_emission_rg: 3,
+            date_emission_rg: 3,
             cnh: 3,
-            nacionalidade: 3,
-            cep_endereco: 2,
-            rua: 8,
-            numero: 2,
-            complemento: 3,
-            bairro: 3,
-            cidade: 3,
-            estado: 3,
-            telefone: 3,
+            nationality: 3,
+            address_cep: 2,
+            address_street: 8,
+            address_nb: 2,
+            address_complement: 3,
+            address_district: 3,
+            register_county_id: 3,
+            state_uf_id: 3,
+            phone: 3,
             email: 3,
-            foto: 3,
-            data_cadastro: 3,
+            photo: 3,
+            date_register: 3,
           }}
           width="100%"
           backRoute="/cadastro"

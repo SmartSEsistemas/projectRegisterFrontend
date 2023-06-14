@@ -314,9 +314,15 @@ export const ItemsPerPageContainer = styled.div`
   display: flex;
   align-items: center;
   color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : theme.dark)};
+
   & select {
+    background: ${({ theme }) => theme.background};
+    border: 1px solid
+      ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : theme.dark)};
+    color: ${({ theme }) => (theme.theme === 'dark' ? '#A6B0CF' : theme.dark)};
     padding: 4px 8px;
     border-radius: 5px;
+    cursor: pointer;
   }
 `;
 
